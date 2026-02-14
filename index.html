@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<title>Situated Visualization Design Space</title>
+
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+
+
+	<link href="css/jquery-ui.min.css" rel="stylesheet">
+
+	<!-- idvx_ styles for this template -->
+	<link href="css/idvx_style.css" rel="stylesheet">
+
+	<script src="js/ie-emulation-modes-warning.js"></script>
+
+	<script src="js/jquery.min.js"></script>
+	<script src="js/jquery.cookie.js"></script>
+
+	<script type="text/javascript" src="js/jquery-ui.min.js"></script>
+
+</head>
+
+<body>
+	<div class="idvx-bg">
+		<!-- Static navbar -->
+		<div class="navbar navbar-default nav-static-top idvx-navbar" role="navigation">
+			<div class="container-fluid idvx-navbar-container">
+				<div class="navbar-header">
+					<div class="idvx-navbar-outer-container">
+						<div class="idvx-navbar-top">
+							<span class="idvx-brand-title">
+								<!-- <b>Data Analogy<a href="./img/DesignSpace.png"> Design Space</a> </b> -->
+								Situated Visualization Design Space <a href="./img/design space_final.png">
+									<img src="./img/down.png" alt="角标"
+										style="position: relative; top: -8px; left: 0px;width: 20px; height: 20px;">
+								</a>
+								<!-- Data Analogy Design Space <a href="./img/DesignSpace.png"><img src="./" alt="png"></a> -->
+							</span>
+						</div>
+						<div class="idvx-navbar-bottom">
+							<span class="idvx-brand-desc">
+								Designing Situated Visualization: Dual Perspectives
+								<!-- <sup><a href="https://arxiv.org/abs/2206.12118" target="_blank">[PDF]</sup></a>  -->
+								<!-- (<i>会议名称 </i>) -->
+								<!-- Exploring the Design Space for Applying Animation to Visualization in Data Videos -->
+							</span><br>
+							<span class="idvx-brand-desc">
+								<!-- Qing Chen, Wei Shuai, Jiyao Zhang, Zhida Sun, Nan Cao -->
+							</span><br>
+							<span class="idvx-brand-desc">
+								<!-- <a href="https://idvxlab.com/" target="_blank">Intelligent Big Data Visualization Lab (iDV<sup>x</sup>)</a>							 -->
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- <img class="idvx-navbarimage" src="../img/IDVX-logo.png"></img>	 -->
+		</div>
+
+		<!-- Main content wrapper -->
+		<table class="idvx-content-wrapper">
+			<tr class="idvx-content-row">
+				<!-- left side bar -->
+				<td class="idvx-sidebar-fixed">
+					<div class="idvx-sidebar-container">
+						<!-- Bottom filter panel -->
+						<div id="bottom-filterPanel" class="panel panel-default idvx-panel divx-panel-height">
+							<!-- Object filter panel -->
+							<div id="idvx-task" class="panel-body idvx-panel-bottom idvx-panel-contentPadding">
+								<!-- Goal -->
+								<div id="idvx-object" class="idvx-panel-bottom">
+									<div class="panel-heading idvx-panel-heading">
+										<strong>Design Goal</strong>
+									</div>
+									<div class="panel-group" id="idvx-task-collapseGroup" role="tablist"
+										aria-multiselectable="true">
+										<div class="panel panel-default idvx-task-panelSingle">
+
+
+											<div id="collapseFour" class="panel-collapse collapse in" role="tabpanel"
+												aria-labelledby="headingOne">
+												<div class="panel-body idvx-Goal-panelBody">
+													<div class="idvx-collapsed-container" data-toggle="buttons">
+
+														<button id="presentation-one" type="button" name="comprehension"
+															class="btn btn-primary idvx-collapsed-entry active"
+															aria-pressed="false" autocomplete="off"
+															data-toggle="tooltip" title="comprehension">
+															<input type="checkbox" autocomplete="off">
+														</button>
+														<button id="presentation-two" type="button" name="communication"
+															class="btn btn-primary idvx-collapsed-entry active"
+															aria-pressed="false" autocomplete="off"
+															data-toggle="tooltip" title="communication">
+															<input type="checkbox" autocomplete="off">
+														</button>
+														<button id="presentation-3" type="button" name="archive"
+															class="btn btn-primary idvx-collapsed-entry active"
+															aria-pressed="false" autocomplete="off"
+															data-toggle="tooltip" title="archive">
+															<input type="checkbox" autocomplete="off">
+														</button>
+														<button id="presentation-4" type="button" name="engagement"
+															class="btn btn-primary idvx-collapsed-entry active"
+															aria-pressed="false" autocomplete="off"
+															data-toggle="tooltip" title="engagement">
+															<input type="checkbox" autocomplete="off">
+														</button>
+														<button id="presentation-5" type="button" name="reflection"
+															class="btn btn-primary idvx-collapsed-entry active"
+															aria-pressed="false" autocomplete="off"
+															data-toggle="tooltip" title="reflection">
+															<input type="checkbox" autocomplete="off">
+														</button>
+														<button id="presentation-6" type="button" name="analysis"
+															class="btn btn-primary idvx-collapsed-entry active"
+															aria-pressed="false" autocomplete="off"
+															data-toggle="tooltip" title="analysis">
+															<input type="checkbox" autocomplete="off">
+														</button>
+														<!-- </button>															 -->
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<!-- User -->
+								<div id="idvx-object" class="idvx-panel-bottom">
+									<div class="panel-heading idvx-panel-heading">
+										<strong>Design Audience</strong>
+									</div>
+									<div class="panel-group" id="idvx-task-collapseGroup" role="tablist"
+										aria-multiselectable="true">
+										<div class="panel panel-default idvx-task-panelSingle">
+
+											<div id="collapseFour" class="panel-collapse collapse in" role="tabpanel"
+												aria-labelledby="headingOne">
+												<div class="panel-body idvx-User-panelBody">
+													<div class="idvx-collapsed-container" data-toggle="buttons">
+														<button id="four-one" type="button" name="Individual"
+															class="btn btn-primary idvx-collapsed-entry active"
+															aria-pressed="false" autocomplete="off"
+															data-toggle="tooltip" title="Individual">
+															<input type="checkbox" autocomplete="off">
+														</button>
+														<button id="four-two" type="button" name="Group"
+															class="btn btn-primary idvx-collapsed-entry active"
+															aria-pressed="false" autocomplete="off"
+															data-toggle="tooltip" title="Group">
+															<input type="checkbox" autocomplete="off">
+														</button>
+														<button id="four-three" type="button" name="Public"
+															class="btn btn-primary idvx-collapsed-entry active"
+															aria-pressed="false" autocomplete="off"
+															data-toggle="tooltip" title="Public">
+															<input type="checkbox" autocomplete="off">
+														</button>
+														</button>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- Presentation -->
+								<div class="panel-heading idvx-panel-heading">
+									<strong>Presentation</strong>
+								</div>
+								<div class="panel-group" id="idvx-task-collapseGroup" role="tablist"
+									aria-multiselectable="true">
+									<div class="panel panel-default idvx-task-panelSingle">
+
+										<div id="collapseFour" class="panel-collapse collapse in" role="tabpanel"
+											aria-labelledby="headingOne">
+											<div class="panel-body idvx-Presentation-panelBody">
+												<div class="idvx-collapsed-container" data-toggle="buttons">
+
+													<button id="Seven-one" type="button" name="XR"
+														class="btn btn-primary idvx-collapsed-entry active"
+														aria-pressed="false" autocomplete="off" data-toggle="tooltip"
+														title="XR">
+														<input type="checkbox" autocomplete="off">
+													</button>
+													<button id="Seven-two" type="button" name="Event"
+														class="btn btn-primary idvx-collapsed-entry active"
+														aria-pressed="false" autocomplete="off" data-toggle="tooltip"
+														title="Event">
+														<input type="checkbox" autocomplete="off">
+													</button>
+													<button id="Seven-three" type="button" name="Artifact"
+														class="btn btn-primary idvx-collapsed-entry active"
+														aria-pressed="false" autocomplete="off" data-toggle="tooltip"
+														title="Artifact">
+														<input type="checkbox" autocomplete="off">
+													</button>
+													<button id="Seven-four" type="button" name="Installation"
+														class="btn btn-primary idvx-collapsed-entry active"
+														aria-pressed="false" autocomplete="off" data-toggle="tooltip"
+														title="Installation">
+														<input type="checkbox" autocomplete="off">
+													</button>
+
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- Representation Form -->
+								<div id="idvx-object" class="idvx-panel-bottom">
+									<div class="panel-heading idvx-panel-heading">
+										<strong>Representation Form</strong>
+									</div>
+									<div class="panel-group" id="idvx-task-collapseGroup" role="tablist"
+										aria-multiselectable="true">
+										<div class="panel panel-default idvx-task-panelSingle">
+
+											<div id="collapseFour" class="panel-collapse collapse in" role="tabpanel"
+												aria-labelledby="headingOne">
+												<div class="panel-body idvx-representationForm-panelBody">
+													<div class="idvx-collapsed-container" data-toggle="buttons">
+
+														<button id="rf-one" type="button" name="visual"
+															class="btn btn-primary idvx-collapsed-entry active"
+															aria-pressed="false" autocomplete="off"
+															data-toggle="tooltip" title="visual">
+															<input type="checkbox" autocomplete="off">
+														</button>
+														<button id="rf-two" type="button" name="haptic"
+															class="btn btn-primary idvx-collapsed-entry active"
+															aria-pressed="false" autocomplete="off"
+															data-toggle="tooltip" title="haptic">
+															<input type="checkbox" autocomplete="off">
+														</button>
+														<button id="rf-3" type="button" name="sound"
+															class="btn btn-primary idvx-collapsed-entry active"
+															aria-pressed="false" autocomplete="off"
+															data-toggle="tooltip" title="sound">
+															<input type="checkbox" autocomplete="off">
+														</button>
+														<button id="rf-4" type="button" name="other (taste, smell)"
+															class="btn btn-primary idvx-collapsed-entry active"
+															aria-pressed="false" autocomplete="off"
+															data-toggle="tooltip" title="other (taste, smell)">
+															<input type="checkbox" autocomplete="off">
+														</button>
+														<!-- </button>															 -->
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<!-- Situatedness Scale -->
+								<div id="idvx-object" class="idvx-panel-bottom">
+									<div class="panel-heading idvx-panel-heading">
+										<strong>Situatedness-Scale</strong>
+									</div>
+									<div class="panel-group" id="idvx-task-collapseGroup" role="tablist"
+										aria-multiselectable="true">
+										<div class="panel panel-default idvx-task-panelSingle">
+											<div id="collapseFour" class="panel-collapse collapse in" role="tabpanel"
+												aria-labelledby="headingOne">
+												<div class="panel-body idvx-SituatednessScale-panelBody">
+													<div class="idvx-collapsed-container" data-toggle="buttons">
+
+														<button id="situ-scale-one" type="small" name="small"
+															class="btn btn-primary idvx-collapsed-entry active"
+															aria-pressed="false" autocomplete="off"
+															data-toggle="tooltip" title="small">
+															<input type="checkbox" autocomplete="off">
+														</button>
+														<button id="situ-scale-two" type="medium" name="medium"
+															class="btn btn-primary idvx-collapsed-entry active"
+															aria-pressed="false" autocomplete="off"
+															data-toggle="tooltip" title="medium">
+															<input type="checkbox" autocomplete="off">
+														</button>
+														<button id="situ-scale-3" type="large" name="large"
+															class="btn btn-primary idvx-collapsed-entry active"
+															aria-pressed="false" autocomplete="off"
+															data-toggle="tooltip" title="large">
+															<input type="checkbox" autocomplete="off">
+														</button>
+														<!-- <button id="situ-4" type="button" name="environment proxy" class="btn btn-primary idvx-collapsed-entry active" aria-pressed="false" autocomplete="off" data-toggle="tooltip" title="environment proxy">
+														<input type="checkbox" autocomplete="off">
+													</button> -->
+														<!-- </button>															 -->
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<!-- Situatedness Semantics -->
+								<div id="idvx-object" class="idvx-panel-bottom">
+									<div class="panel-heading idvx-panel-heading">
+										<strong>Situatedness-Semantics</strong>
+									</div>
+									<div class="panel-group" id="idvx-task-collapseGroup" role="tablist"
+										aria-multiselectable="true">
+										<div class="panel panel-default idvx-task-panelSingle">
+											<div id="collapseFour" class="panel-collapse collapse in" role="tabpanel"
+												aria-labelledby="headingOne">
+												<div class="panel-body idvx-SituatednessSemantics-panelBody">
+													<div class="idvx-collapsed-container" data-toggle="buttons">
+
+														<button id="situ-sem-one" type="Indexical" name="Indexical"
+															class="btn btn-primary idvx-collapsed-entry active"
+															aria-pressed="false" autocomplete="off"
+															data-toggle="tooltip" title="Indexical">
+															<input type="checkbox" autocomplete="off">
+														</button>
+														<button id="situ-sem-two" type="Symbolic" name="Symbolic"
+															class="btn btn-primary idvx-collapsed-entry active"
+															aria-pressed="false" autocomplete="off"
+															data-toggle="tooltip" title="Symbolic">
+															<input type="checkbox" autocomplete="off">
+														</button>
+														<button id="situ-sem-three" type="Iconic" name="Iconic"
+															class="btn btn-primary idvx-collapsed-entry active"
+															aria-pressed="false" autocomplete="off"
+															data-toggle="tooltip" title="Iconic">
+															<input type="checkbox" autocomplete="off">
+														</button>
+
+														<!-- <button id="situ-4" type="button" name="environment proxy" class="btn btn-primary idvx-collapsed-entry active" aria-pressed="false" autocomplete="off" data-toggle="tooltip" title="environment proxy">
+														<input type="checkbox" autocomplete="off">
+													</button> -->
+														<!-- </button>															 -->
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- Data Origin -->
+								<div id="idvx-object" class="idvx-panel-bottom">
+									<div class="panel-heading idvx-panel-heading">
+										<strong>Data Origin</strong>
+									</div>
+									<div class="panel-group" id="idvx-task-collapseGroup" role="tablist"
+										aria-multiselectable="true">
+										<div class="panel panel-default idvx-task-panelSingle">
+
+											<div id="collapseFour" class="panel-collapse collapse in" role="tabpanel"
+												aria-labelledby="headingOne">
+												<div class="panel-body idvx-dataOrigin-panelBody">
+													<div class="idvx-collapsed-container" data-toggle="buttons">
+
+														<button id="layout-one" type="button" name="Environmental data"
+															class="btn btn-primary idvx-collapsed-entry active"
+															aria-pressed="false" autocomplete="off"
+															data-toggle="tooltip" title="Environmental data">
+															<input type="checkbox" autocomplete="off">
+														</button>
+														<button id="layout-two" type="button"
+															name="Participant-generated"
+															class="btn btn-primary idvx-collapsed-entry active"
+															aria-pressed="false" autocomplete="off"
+															data-toggle="tooltip" title="Participant-generated">
+															<input type="checkbox" autocomplete="off">
+														</button>
+														<button id="layout-3" type="button" name="Collected&Uploaded"
+															class="btn btn-primary idvx-collapsed-entry active"
+															aria-pressed="false" autocomplete="off"
+															data-toggle="tooltip" title="Collected&Uploaded">
+															<input type="checkbox" autocomplete="off">
+														</button>
+														<button id="layout-4" type="button" name="Unspecified"
+															class="btn btn-primary idvx-collapsed-entry active"
+															aria-pressed="false" autocomplete="off"
+															data-toggle="tooltip" title="Unspecified">
+															<input type="checkbox" autocomplete="off">
+														</button>
+														<!-- </button>															 -->
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- Topic -->
+								<div id="idvx-object" class="idvx-panel-bottom">
+									<div class="panel-heading idvx-panel-heading">
+										<strong>Data Topic</strong>
+									</div>
+									<div class="panel-group" id="idvx-task-collapseGroup" role="tablist"
+										aria-multiselectable="true">
+										<div class="panel panel-default idvx-task-panelSingle">
+
+											<div id="collapseFour" class="panel-collapse collapse in" role="tabpanel"
+												aria-labelledby="headingOne">
+												<div class="panel-body idvx-Topic-panelBody">
+													<div class="idvx-collapsed-container" data-toggle="buttons">
+														<button id="two-one" type="button"
+															name="Society&History(include media)"
+															class="btn btn-primary idvx-collapsed-entry active"
+															aria-pressed="false" autocomplete="off"
+															data-toggle="tooltip" title="Society&History">
+															<input type="checkbox" autocomplete="off">
+														</button>
+														<button id="two-two" type="button"
+															name="Entertainment, Sports&Culture"
+															class="btn btn-primary idvx-collapsed-entry active"
+															aria-pressed="false" autocomplete="off"
+															data-toggle="tooltip" title="Entertainment, Sports&Culture">
+															<input type="checkbox" autocomplete="off">
+														</button>
+														<button id="two-3" type="button"
+															name="Environment (Surroudings/Nature), Geography&Ecology"
+															class="btn btn-primary idvx-collapsed-entry active"
+															aria-pressed="false" autocomplete="off"
+															data-toggle="tooltip"
+															title="Environment (Surroudings/Nature), Geography&Ecology">
+															<input type="checkbox" autocomplete="off">
+														</button>
+														<button id="two-4" type="button" name="Health, Life & Emotion"
+															class="btn btn-primary idvx-collapsed-entry active"
+															aria-pressed="false" autocomplete="off"
+															data-toggle="tooltip" title="Health, Life & Emotion">
+															<input type="checkbox" autocomplete="off">
+														</button>
+														<button id="two-5" type="button"
+															name="Industry, Architecture&Engineering"
+															class="btn btn-primary idvx-collapsed-entry active"
+															aria-pressed="false" autocomplete="off"
+															data-toggle="tooltip"
+															title="Industry, Architecture&Engineering">
+															<input type="checkbox" autocomplete="off">
+														</button>
+														<button id="two-6" type="button" name="Science"
+															class="btn btn-primary idvx-collapsed-entry active"
+															aria-pressed="false" autocomplete="off"
+															data-toggle="tooltip" title="Science">
+															<input type="checkbox" autocomplete="off">
+														</button>
+														<button id="two-7" type="button" name="Unspecified&Mixed Topics"
+															class="btn btn-primary idvx-collapsed-entry active"
+															aria-pressed="false" autocomplete="off"
+															data-toggle="tooltip" title="Unspecified&Mixed Topics">
+															<input type="checkbox" autocomplete="off">
+														</button>
+														<!-- </button>															 -->
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+				</td>
+
+				<!-- right main area -->
+				<td>
+					<div class="container-fluid">
+						<div class="idvx-row-container">
+							<div class="row">
+								<div id="idvx-videoContainer-panel" class="panel panel-default idvx-clearfix">
+									<div id="idvx-videoContainer" class="col-md-12 panel-body">
+										<p class="text-muted">Here comes the content</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</td>
+			</tr>
+		</table>
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content" style="width:800px;">
+					<div class="modal-body clearfix" style="padding: 30px;">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+								aria-hidden="true">&times;</span></button>
+						<div id="idvx-modalTxt">
+							<h6><strong id="idvx-title" class="title" style="color:#636363; font-size: large;"></strong>
+							</h6>
+							<div>
+
+								<p id="idvx-User" class="modalContent"
+									style="color:#636363;font-size: smaller; font-family: PingFangSC;" </p>
+								<p id="idvx-Topic" class="strategy"
+									style="color:#636363;font-size: smaller; font-family: PingFangSC;"></p>
+								<p id="idvx-Presentation" class="transformation"
+									style="color:#636363;font-size: smaller; font-family: PingFangSC;"></p>
+								<p id="idvx-Goal" class="bindingType"
+									style="color:#636363;font-size: smaller; font-family: PingFangSC;"></p>
+								<p id="idvx-dataOrigin" class="presentationForm"
+									style="color:#636363;font-size: smaller; font-family: PingFangSC;"></p>
+								<p id="idvx-SituatednessScale" class="layout"
+									style="color:#636363;font-size: smaller; font-family: PingFangSC;"></p>
+								<p id="idvx-SituatednessSemantics" class="layout"
+									style="color:#636363;font-size: smaller; font-family: PingFangSC;"></p>
+								<p id="idvx-representationForm" class="topic"
+									style="color:#636363;font-size: 14px;font-family: PingFangSC"></p>
+								<p id="idvx-Description" class="description"
+									style="color:#636363;font-size: smaller;font-family: PingFangSC"></p>
+								<!-- <p id="idvx-description" class="modalContent" style="color:#636363;font-size: smaller; font-family: PingFangSC;"</p> -->
+								<p id="idvx-Sourcelink" class="sourcelink"
+									style="color:#636363;font-size: smaller;font-family: PingFangSC"></p>
+								<p id="idvx-modalURL" class="modalURL"></p>
+							</div>
+							<div id="idvx-modalImage"
+								style="max-width: 630px; max-height: 700px;padding-top:10px;display: inline-block;float:left; margin-left:40px;"
+								class="modalContent">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Bootstrap core JavaScript
+    ================================================== -->
+		<!-- Placed at the end of the document so the pages load faster -->
+		<script type="text/javascript" src="js/vis.js"></script>
+		<script type="text/javascript" src="js/compsvg.js"></script>
+		<script src="js/driver.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+
+		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+		<!-- <script src="js/ie10-viewport-bug-workaround.js"></script> -->
+		<!-- Code injected by live-server -->
+		<script type="text/javascript">
+			// <![CDATA[  <-- For SVG support
+			if ('WebSocket' in window) {
+				(function () {
+					function refreshCSS() {
+						var sheets = [].slice.call(document.getElementsByTagName("link"));
+						var head = document.getElementsByTagName("head")[0];
+						for (var i = 0; i < sheets.length; ++i) {
+							var elem = sheets[i];
+							var parent = elem.parentElement || head;
+							parent.removeChild(elem);
+							var rel = elem.rel;
+							if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+								var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+								elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+							}
+							parent.appendChild(elem);
+						}
+					}
+					var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+					var address = protocol + window.location.host + window.location.pathname + '/ws';
+					var socket = new WebSocket(address);
+					socket.onmessage = function (msg) {
+						if (msg.data == 'reload') window.location.reload();
+						else if (msg.data == 'refreshcss') refreshCSS();
+					};
+					if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+						console.log('Live reload enabled.');
+						sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+					}
+				})();
+			}
+			else {
+				console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+			}
+	// ]]>
+		</script>
+</body>
+
+</html>
