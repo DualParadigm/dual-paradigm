@@ -402,17 +402,26 @@ idvx-navbarimage{
 	padding: 0 10px;
 }
 
+/* 瀑布流容器：多列布局 */
 #idvx-videoContainer {
 	margin: 28px 40px 28px 0;
-
 	min-height: 140px;
-	/* max-height: 825px; */
 	overflow-y: auto;
-	padding: 0 0px;
-	/* width: 1200px; */
+	padding: 0 4px;
 	height: 88%;
-	/* 760px; */
-	/* background-color: white; */
+	/* 瀑布流：列数随宽度自适应，列间距统一 */
+	column-count: 4;
+	column-gap: 16px;
+	column-fill: balance;
+}
+@media (max-width: 1400px) {
+	#idvx-videoContainer { column-count: 3; }
+}
+@media (max-width: 1000px) {
+	#idvx-videoContainer { column-count: 2; }
+}
+@media (max-width: 600px) {
+	#idvx-videoContainer { column-count: 1; }
 }
 
 #idvx-videoContainer-panel {
@@ -914,24 +923,73 @@ idvx-navbarimage{
 
 
 
-/*videos*/
+/*videos - 瀑布流卡片：避免被截断到下一列 */
 .idvx-singleContainer {
 	background: rgba(255, 255, 255, 0.4);
 	backdrop-filter: blur(8px);
 	-webkit-backdrop-filter: blur(8px);
 	position: relative;
-	width: 208px;
-	height: 122px;
+	width: 100%;
+	max-width: 240px;
+	min-height: 120px;
 	display: inline-block;
-	margin: 0 12px 24px 12px;
+	margin: 0 0 16px 0;
+	break-inside: avoid;
+	-webkit-column-break-inside: avoid;
+	page-break-inside: avoid;
 	border: none;
 	border-radius: 10px;
 	overflow: hidden;
 	word-wrap: break-word;
 	box-shadow: none;
 	cursor: pointer;
-	line-height: 120px;
-	text-align: center;
+	text-align: left;
+	box-sizing: border-box;
+}
+
+/* ArtisticVis 风格：上图 + 题目 + 作者 */
+.idvx-singleContainer.idvx-card-with-caption {
+	display: flex;
+	flex-direction: column;
+	line-height: 1.3;
+}
+.idvx-card-imgWrap {
+	width: 100%;
+	height: 122px;
+	flex-shrink: 0;
+	overflow: hidden;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: rgba(0, 0, 0, 0.06);
+}
+.idvx-card-with-caption .idvx-videoImg {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+.idvx-card-caption {
+	padding: 8px 10px 10px;
+	flex: 1;
+	min-height: 0;
+}
+.idvx-card-title {
+	font-size: 13px;
+	font-weight: 600;
+	color: #2c2c3a;
+	margin-bottom: 2px;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+.idvx-card-author {
+	font-size: 11px;
+	color: #636363;
+	display: -webkit-box;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
 }
 
 

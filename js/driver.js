@@ -39,15 +39,23 @@ function cookieSetting() {
 }
 
 function setupTooltips() {
-    $("#idvx-task").tooltip({
-        selector: '[data-toggle="tooltip"]',
+    // 侧栏 icon：确保有 title（悬浮显示名字），并初始化 tooltip
+    $(".situvis-sidebar .idvx-collapsed-entry").each(function() {
+        var $el = $(this);
+        if (!$el.attr("title") && $el.attr("name")) {
+            $el.attr("title", $el.attr("name"));
+        }
+    });
+    $(".situvis-sidebar").tooltip({
+        selector: '.idvx-collapsed-entry[data-toggle="tooltip"]',
         container: "body",
-        placement: "auto bottom"
+        placement: "top",
+        trigger: "hover"
     });
 
     $("#idvx-videoContainer").tooltip({
         selector: '[data-toggle="tooltip"]',
-        container: ".idvx-content-row",
+        container: "body",
         placement: "auto bottom"
     });
 }
@@ -85,6 +93,7 @@ function isContained(aa, bb) {
 //bind functions concerned to all handlers
 function setupHandlers() {
     $("#idvx-searchBar-button").on("click", onSearchC);
+    $("#input-searchBar").on("focus", searchCSS).on("blur", searchCSSReturn);
     $("#idvx-NDpanel").on("click", ".idvx-bottom-btn", onFilterToggleND1);
     $(".idvx-User-panelBody").on("click", ".idvx-collapsed-entry", onFilterToggleND1); //icons
     $("#idvx-NDpanel").on("click", ".idvx-bottom-btn", onFilterToggleND2);
@@ -110,6 +119,11 @@ var itemsMap = {};
 var itemsShortMap = {};
 // 搜索时匹配的字段（与 data.json 结构一致）
 var searchKeys = ['Title', 'Description'];
+
+// 瀑布流分批加载：当前筛选结果全集、已显示数量、每批条数
+var eligibleItemsFull = [];
+var displayedCount = 0;
+var WATERFALL_PAGE_SIZE = 24;
 
 function loadData() {
     $.getJSON("list/data.json", function(data) {
@@ -191,7 +205,7 @@ function updateDisplayedContent() {
 
         if(eligibleItems[eligibleItems.length-1] && (eligibleItems[eligibleItems.length-1]["id"] == ID))
             return ;
-        var itemInfo = {"id":d.id, "User":d.User,"Topic":d.Topic, "Presentation":d.Presentation, "Goal":d.Goal, "dataOrigin":d.dataOrigin, "Sourcelink":d.Sourcelink, "SituatednessSemantics":d.SituatednessSemantics,"SituatednessScale":d.SituatednessScale, "representationForm":d.representationForm, "Description":d.Description }; 
+        var itemInfo = {"id":d.id, "Title":d.Title, "Author":d.Author || "", "User":d.User,"Topic":d.Topic, "Presentation":d.Presentation, "Goal":d.Goal, "dataOrigin":d.dataOrigin, "Sourcelink":d.Sourcelink, "SituatednessSemantics":d.SituatednessSemantics,"SituatednessScale":d.SituatednessScale, "representationForm":d.representationForm, "Description":d.Description };
         eligibleItems.push(itemInfo);
     });
 
@@ -209,18 +223,52 @@ function updateDisplayedContent() {
 
 	// final = difference(itemsArray, eligibleItems);
 
+    eligibleItemsFull = eligibleItems;
+    displayedCount = 0;
+
     if(!eligibleItems.length) {
         container.append("<p class=\"text-muted\">No eligible cases found.</p>");
     } else {
-        $.each(eligibleItems, function(i, d) {
-            var element = $("<div class=\"idvx-singleContainer\" data-toggle=\"tooltip\" data-target=\"#myModal\">");
-            element.attr("data-id", d.id);
-            var image = $("<img class=\"idvx-videoImg\" loading=\"lazy\">");
-            image.attr("src", "thumbnail/" + d.id + ".png");
-            element.append(image);
-            container.append(element);
+        appendWaterfallBatch(0, WATERFALL_PAGE_SIZE);
+        // 滚动到底时加载更多（主内容区由页面滚动，监听 window）
+        $(window).off("scroll.idvxWaterfall").on("scroll.idvxWaterfall", function() {
+            var threshold = 280;
+            var nearBottom = ($(window).scrollTop() + $(window).height()) > ($(document).height() - threshold);
+            if (nearBottom && displayedCount < eligibleItemsFull.length) {
+                appendWaterfallBatch(displayedCount, displayedCount + WATERFALL_PAGE_SIZE);
+            }
         });
     }
+    updateDisplayedCount();
+}
+
+function formatArr(v) {
+    return Array.isArray(v) ? v.join(", ") : (v || "—");
+}
+// 向 #idvx-videoContainer 追加一批瀑布流卡片（上图 + 标题 + 作者 + 共有信息行，统一卡片高度）
+function appendWaterfallBatch(from, to) {
+    var container = $("#idvx-videoContainer");
+    var items = eligibleItemsFull.slice(from, Math.min(to, eligibleItemsFull.length));
+    $.each(items, function(i, d) {
+        var element = $("<div class=\"idvx-singleContainer idvx-card-with-caption\" data-toggle=\"tooltip\" data-target=\"#myModal\">");
+        element.attr("data-id", d.id);
+        var imgWrap = $("<div class=\"idvx-card-imgWrap\">");
+        var image = $("<img class=\"idvx-videoImg\" loading=\"lazy\">");
+        image.attr("src", "thumbnail/" + d.id + ".png");
+        imgWrap.append(image);
+        element.append(imgWrap);
+        var caption = $("<div class=\"idvx-card-caption\">");
+        caption.append($("<div class=\"idvx-card-title\">").text(d.Title || ""));
+        caption.append($("<div class=\"idvx-card-author\">").text(d.Author || "—"));
+        caption.append($("<div class=\"idvx-card-meta\">").html(
+            "<span class=\"idvx-card-meta-label\">Topic</span> " + formatArr(d.Topic) + "<br>" +
+            "<span class=\"idvx-card-meta-label\">Presentation</span> " + formatArr(d.Presentation) + "<br>" +
+            "<span class=\"idvx-card-meta-label\">Goal</span> " + formatArr(d.Goal)
+        ));
+        element.append(caption);
+        container.append(element);
+    });
+    displayedCount = Math.min(to, eligibleItemsFull.length);
     updateDisplayedCount();
 }
 
@@ -236,7 +284,9 @@ function hasDuplicateElements(array1, array2) {
 
 
 function updateDisplayedCount(){
-    $("#idvx-searchBar-relativeNum").text($("#idvx-videoContainer.idvx-singleContainer").size());
+    var n = $("#idvx-videoContainer .idvx-singleContainer").length;
+    var total = eligibleItemsFull.length;
+    $("#idvx-searchBar-relativeNum").text(total > 0 && n < total ? n + " / " + total : total);
 }
 
 //Search Bar
