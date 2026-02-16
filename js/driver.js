@@ -29,9 +29,21 @@ $(document).ready(function() {
     setupTooltips();
     loadData();
     setupHandlers();
+    setupNavTabs();
     if(!$.cookie(COOKIE_TITLE))
         cookieSetting();
 });
+
+function setupNavTabs() {
+    $(".situvis-nav-item").on("click", function(e) {
+        e.preventDefault();
+        var page = $(this).data("page");
+        $(".situvis-nav-item").removeClass("active");
+        $(this).addClass("active");
+        $(".situvis-page-wrap").hide();
+        $("#page-" + page).show();
+    });
+}
 
 //set cookie
 function cookieSetting() {
@@ -90,6 +102,38 @@ function isContained(aa, bb) {
     }
 }
 
+// 将维度值规范为数组，便于比较
+function toArr(v) {
+    if (v == null) return [];
+    return Array.isArray(v) ? v : [v];
+}
+
+// 计算单条案例的相关度得分：该维度「仅有」所选选项的得 2 分，仅匹配得 1 分，不匹配 0。得分越高排越前。
+function relevanceScore(item) {
+    var score = 0;
+    var dims = [
+        { key: "User", selected: parameter.User },
+        { key: "Topic", selected: parameter.Topic },
+        { key: "Presentation", selected: parameter.Presentation },
+        { key: "Goal", selected: parameter.Goal },
+        { key: "dataOrigin", selected: parameter.dataOrigin },
+        { key: "SituatednessScale", selected: parameter.SituatednessScale },
+        { key: "SituatednessSemantics", selected: parameter.SituatednessSemantics },
+        { key: "representationForm", selected: parameter.representationForm }
+    ];
+    for (var i = 0; i < dims.length; i++) {
+        var sel = dims[i].selected;
+        if (!sel || sel.length === 0) continue;
+        var caseVal = toArr(item[dims[i].key]);
+        if (caseVal.length === 0) continue;
+        if (!isContained(sel, item[dims[i].key])) continue;
+        // 该维度仅有这一个（或仅含所选）选项视为相关度最高
+        var onlyThisOption = (caseVal.length === 1 && sel.indexOf(caseVal[0]) >= 0);
+        score += onlyThisOption ? 2 : 1;
+    }
+    return score;
+}
+
 //bind functions concerned to all handlers
 function setupHandlers() {
     $("#idvx-searchBar-button").on("click", onSearchC);
@@ -126,18 +170,32 @@ var displayedCount = 0;
 var WATERFALL_PAGE_SIZE = 24;
 
 function loadData() {
-    $.getJSON("list/data.json", function(data) {
-        itemsMap = {};
-        itemsShortMap = {};
-        $.each(data, function(i, d) {
-            if(!itemsShortMap[d.id])
-                itemsShortMap[d.id] = {"id":d.id, "User":d.User,"Topic":d.Topic, "Presentation":d.Presentation, "Goal":d.Goal, "dataOrigin":d.dataOrigin, "Sourcelink":d.Sourcelink, "SituatednessSemantics":d.SituatednessSemantics,"SituatednessScale":d.SituatednessScale, "representationForm":d.representationForm, "Description":d.Description }; 
-            // 不再预加载缩略图，改为列表渲染时按需加载（见 updateDisplayedContent）
-            itemsMap[i] = d;
+    // 使用与当前页面同目录的路径，兼容 GitHub Pages 子路径
+    var dataUrl = "list/data.json";
+    if (document.querySelector("base") && document.querySelector("base").href) {
+        dataUrl = document.querySelector("base").href + "list/data.json";
+    }
+    $.getJSON(dataUrl)
+        .done(function(data) {
+            itemsMap = {};
+            itemsShortMap = {};
+            $.each(data, function(i, d) {
+                if(!itemsShortMap[d.id])
+                    itemsShortMap[d.id] = {"id":d.id, "User":d.User,"Topic":d.Topic, "Presentation":d.Presentation, "Goal":d.Goal, "dataOrigin":d.dataOrigin, "Sourcelink":d.Sourcelink, "SituatednessSemantics":d.SituatednessSemantics,"SituatednessScale":d.SituatednessScale, "representationForm":d.representationForm, "Description":d.Description }; 
+                itemsMap[i] = d;
+            });
+            configureTimeFilter();
+            updateDisplayedContent();
+        })
+        .fail(function(jqxhr, textStatus, error) {
+            var container = $("#idvx-videoContainer");
+            container.empty();
+            container.append(
+                "<p class=\"text-muted\">Failed to load data.</p>" +
+                "<p class=\"text-muted\" style=\"font-size:12px;\">list/data.json could not be loaded. Check the browser console (F12) for details. If you are on GitHub Pages, ensure the repo contains the list/ folder and data.json.</p>"
+            );
+            console.error("loadData failed:", textStatus, error, jqxhr);
         });
-        configureTimeFilter();
-        updateDisplayedContent();
-    });
 }
 
 function updateDisplayedContent() {
@@ -170,36 +228,29 @@ function updateDisplayedContent() {
         var NSituatednessSemantics = parameter.SituatednessSemantics;
         var NrepresentationForm = parameter.representationForm;
 
-		if (isContained(NUser, d.User)) {
-			return; 
-		}
-
-		// console.log(NUser,"\n" ,d.User,"\n" ,isContained(NUser, d.User))
-		if (isContained(NTopic, d.Topic)) {
+		// 选中即包含：仅当有选中标签时，保留至少匹配一个选中标签的案例；无选中则不过滤
+		if (NUser.length > 0 && !isContained(NUser, d.User)) {
 			return;
 		}
-
-		if (isContained(NPresentation, d.Presentation)) {
+		if (NTopic.length > 0 && !isContained(NTopic, d.Topic)) {
 			return;
 		}
-
-		if (isContained(NGoal, d.Goal)) {
+		if (NPresentation.length > 0 && !isContained(NPresentation, d.Presentation)) {
 			return;
 		}
-
-		if (isContained(NdataOrigin, d.dataOrigin)) {
-				return;
-		}
-	
-		if (isContained(NSituatednessScale, d.SituatednessScale)) {
+		if (NGoal.length > 0 && !isContained(NGoal, d.Goal)) {
 			return;
 		}
-
-		if (isContained(NSituatednessSemantics, d.SituatednessSemantics)) {
+		if (NdataOrigin.length > 0 && !isContained(NdataOrigin, d.dataOrigin)) {
 			return;
 		}
-		
-		if (isContained(NrepresentationForm, d.representationForm)) {
+		if (NSituatednessScale.length > 0 && !isContained(NSituatednessScale, d.SituatednessScale)) {
+			return;
+		}
+		if (NSituatednessSemantics.length > 0 && !isContained(NSituatednessSemantics, d.SituatednessSemantics)) {
+			return;
+		}
+		if (NrepresentationForm.length > 0 && !isContained(NrepresentationForm, d.representationForm)) {
 			return;
 		}
 
@@ -222,6 +273,13 @@ function updateDisplayedContent() {
 	// }
 
 	// final = difference(itemsArray, eligibleItems);
+
+	// 仅排序，不按分数剔除：没有该标签的已在上方过滤掉；有该标签的无论分数高低都会显示，只按相关度排先后
+	eligibleItems.sort(function(a, b) {
+		var sa = relevanceScore(a);
+		var sb = relevanceScore(b);
+		return sb - sa;
+	});
 
     eligibleItemsFull = eligibleItems;
     displayedCount = 0;
@@ -354,130 +412,141 @@ function configureTimeFilter() {
 };
 
 
-// set User
+// 筛选按钮点击：先切换 active 再根据当前状态更新 parameter，避免与 Bootstrap data-toggle 顺序导致需点两次
 function onFilterToggleND1() {
     var element = $(this);
+    element.toggleClass("active");
     var keywordOnClick = element.attr("name");
-    if (!element.hasClass("active"))
+    if (element.hasClass("active")) {
         element.children(".true").show();
-    else
+        if ($.inArray(keywordOnClick, parameter.User) < 0) parameter.User.push(keywordOnClick);
+    } else {
         element.children(".true").hide();
-    if (element.hasClass("active") && ($.inArray(keywordOnClick, parameter.User)<0))
-        parameter.User.push(keywordOnClick);
-    else if(!element.hasClass("active") && $.inArray(keywordOnClick, parameter.User)>=0)
-        parameter.User.splice($.inArray(keywordOnClick, parameter.User), 1);
+        var idx = $.inArray(keywordOnClick, parameter.User);
+        if (idx >= 0) parameter.User.splice(idx, 1);
+    }
     updateDisplayedContent();
 }
 
-
-// set Topic
 function onFilterToggleND2() {
     var element = $(this);
+    element.toggleClass("active");
     var keywordOnClick = element.attr("name");
-    if (!element.hasClass("active"))
+    if (element.hasClass("active")) {
         element.children(".true").show();
-    else
+        if ($.inArray(keywordOnClick, parameter.Topic) < 0) parameter.Topic.push(keywordOnClick);
+    } else {
         element.children(".true").hide();
-    if (element.hasClass("active") && ($.inArray(keywordOnClick, parameter.Topic)<0))
-        parameter.Topic.push(keywordOnClick);
-    else if(!element.hasClass("active") && $.inArray(keywordOnClick, parameter.Topic)>=0)
-        parameter.Topic.splice($.inArray(keywordOnClick, parameter.Topic), 1);
+        var idx = $.inArray(keywordOnClick, parameter.Topic);
+        if (idx >= 0) parameter.Topic.splice(idx, 1);
+    }
     updateDisplayedContent();
 }
 
 function onFilterToggleND3() {
     var element = $(this);
+    element.toggleClass("active");
     var keywordOnClick = element.attr("name");
-    if (!element.hasClass("active"))
+    if (element.hasClass("active")) {
         element.children(".true").show();
-    else
+        if ($.inArray(keywordOnClick, parameter.Presentation) < 0) parameter.Presentation.push(keywordOnClick);
+    } else {
         element.children(".true").hide();
-    if (element.hasClass("active") && ($.inArray(keywordOnClick, parameter.Presentation)<0))
-        parameter.Presentation.push(keywordOnClick);
-    else if(!element.hasClass("active") && $.inArray(keywordOnClick, parameter.Presentation)>=0)
-        parameter.Presentation.splice($.inArray(keywordOnClick, parameter.Presentation), 1);
+        var idx = $.inArray(keywordOnClick, parameter.Presentation);
+        if (idx >= 0) parameter.Presentation.splice(idx, 1);
+    }
     updateDisplayedContent();
 }
 
 function onFilterToggleND4() {
     var element = $(this);
+    element.toggleClass("active");
     var keywordOnClick = element.attr("name");
-    if (!element.hasClass("active"))
+    if (element.hasClass("active")) {
         element.children(".true").show();
-    else
+        if ($.inArray(keywordOnClick, parameter.Goal) < 0) parameter.Goal.push(keywordOnClick);
+    } else {
         element.children(".true").hide();
-    if (element.hasClass("active") && ($.inArray(keywordOnClick, parameter.Goal)<0))
-        parameter.Goal.push(keywordOnClick);
-    else if(!element.hasClass("active") && $.inArray(keywordOnClick, parameter.Goal)>=0)
-        parameter.Goal.splice($.inArray(keywordOnClick, parameter.Goal), 1);
+        var idx = $.inArray(keywordOnClick, parameter.Goal);
+        if (idx >= 0) parameter.Goal.splice(idx, 1);
+    }
     updateDisplayedContent();
 }
 
 function onFilterToggleND5() {
     var element = $(this);
+    element.toggleClass("active");
     var keywordOnClick = element.attr("name");
-    if (!element.hasClass("active"))
+    if (element.hasClass("active")) {
         element.children(".true").show();
-    else
+        if ($.inArray(keywordOnClick, parameter.dataOrigin) < 0) parameter.dataOrigin.push(keywordOnClick);
+    } else {
         element.children(".true").hide();
-    if (element.hasClass("active") && ($.inArray(keywordOnClick, parameter.dataOrigin)<0))
-        parameter.dataOrigin.push(keywordOnClick);
-    else if(!element.hasClass("active") && $.inArray(keywordOnClick, parameter.dataOrigin)>=0)
-        parameter.dataOrigin.splice($.inArray(keywordOnClick, parameter.dataOrigin), 1);
+        var idx = $.inArray(keywordOnClick, parameter.dataOrigin);
+        if (idx >= 0) parameter.dataOrigin.splice(idx, 1);
+    }
     updateDisplayedContent();
 }
 
 function onFilterToggleND6() {
     var element = $(this);
+    element.toggleClass("active");
     var keywordOnClick = element.attr("name");
-    if (!element.hasClass("active"))
+    if (element.hasClass("active")) {
         element.children(".true").show();
-    else
+        if ($.inArray(keywordOnClick, parameter.SituatednessScale) < 0) parameter.SituatednessScale.push(keywordOnClick);
+    } else {
         element.children(".true").hide();
-    if (element.hasClass("active") && ($.inArray(keywordOnClick, parameter.SituatednessScale)<0))
-        parameter.SituatednessScale.push(keywordOnClick);
-    else if(!element.hasClass("active") && $.inArray(keywordOnClick, parameter.SituatednessScale)>=0)
-        parameter.SituatednessScale.splice($.inArray(keywordOnClick, parameter.SituatednessScale), 1);
+        var idx = $.inArray(keywordOnClick, parameter.SituatednessScale);
+        if (idx >= 0) parameter.SituatednessScale.splice(idx, 1);
+    }
     updateDisplayedContent();
 }
 
 function onFilterToggleND7() {
     var element = $(this);
+    element.toggleClass("active");
     var keywordOnClick = element.attr("name");
-    if (!element.hasClass("active"))
+    if (element.hasClass("active")) {
         element.children(".true").show();
-    else
+        if ($.inArray(keywordOnClick, parameter.representationForm) < 0) parameter.representationForm.push(keywordOnClick);
+    } else {
         element.children(".true").hide();
-    if (element.hasClass("active") && ($.inArray(keywordOnClick, parameter.representationForm)<0))
-        parameter.representationForm.push(keywordOnClick);
-    else if(!element.hasClass("active") && $.inArray(keywordOnClick, parameter.representationForm)>=0)
-        parameter.representationForm.splice($.inArray(keywordOnClick, parameter.representationForm), 1);
+        var idx = $.inArray(keywordOnClick, parameter.representationForm);
+        if (idx >= 0) parameter.representationForm.splice(idx, 1);
+    }
     updateDisplayedContent();
 }
+
 function onFilterToggleND8() {
     var element = $(this);
+    element.toggleClass("active");
     var keywordOnClick = element.attr("name");
-    if (!element.hasClass("active"))
+    if (element.hasClass("active")) {
         element.children(".true").show();
-    else
+        if ($.inArray(keywordOnClick, parameter.SituatednessSemantics) < 0) parameter.SituatednessSemantics.push(keywordOnClick);
+    } else {
         element.children(".true").hide();
-    if (element.hasClass("active") && ($.inArray(keywordOnClick, parameter.SituatednessSemantics)<0))
-        parameter.SituatednessSemantics.push(keywordOnClick);
-    else if(!element.hasClass("active") && $.inArray(keywordOnClick, parameter.SituatednessSemantics)>=0)
-        parameter.SituatednessSemantics.splice($.inArray(keywordOnClick, parameter.SituatednessSemantics), 1);
+        var idx = $.inArray(keywordOnClick, parameter.SituatednessSemantics);
+        if (idx >= 0) parameter.SituatednessSemantics.splice(idx, 1);
+    }
     updateDisplayedContent();
 }
 
 
 function onFilterToggleNI() {
     var element = $(this);
+    element.toggleClass("active");
     var collapseContainer = element.parents(".panel-collapse").prev();
     var keywordOnClick = element.attr("Name").toLowerCase();
     var keywordContainer = collapseContainer.attr("id").toLowerCase();
-    if (element.hasClass("active") && ($.inArray(keywordOnClick, parameter.intent[keywordContainer])<0))
-        parameter.intent[keywordContainer].push(keywordOnClick);
-    else if(!element.hasClass("active") && $.inArray(keywordOnClick, parameter.intent[keywordContainer]>=0))
-        parameter.intent[keywordContainer].splice($.inArray(keywordOnClick, parameter.intent[keywordContainer]), 1);
+    if (element.hasClass("active")) {
+        if ($.inArray(keywordOnClick, parameter.intent[keywordContainer]) < 0)
+            parameter.intent[keywordContainer].push(keywordOnClick);
+    } else {
+        var idx = $.inArray(keywordOnClick, parameter.intent[keywordContainer]);
+        if (idx >= 0) parameter.intent[keywordContainer].splice(idx, 1);
+    }
     updateDisplayedContent();
 }
 

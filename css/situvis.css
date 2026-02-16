@@ -31,13 +31,20 @@ body {
 	justify-content: center;
 	padding: 48px 24px 40px;
 	overflow: hidden;
+	background-color: #e5d8dc;
 }
 
 .situvis-banner-bg {
 	position: absolute;
 	inset: 0;
-	background: url("../img/banner-bg.png") center / cover no-repeat;
 	z-index: 0;
+	overflow: hidden;
+}
+.situvis-banner-bg canvas {
+	display: block;
+	width: 100% !important;
+	height: 100% !important;
+	object-fit: cover;
 }
 
 .situvis-banner-bg::before {
@@ -60,24 +67,78 @@ body {
 .situvis-banner-desc {
 	position: relative;
 	z-index: 2;
-	color: #fff;
 	text-align: center;
 	margin: 0;
-	text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+	text-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+	color: rgba(0, 0, 0, 0.8);
+	font-family: "Optima", "PingFang SC", "Helvetica Neue", sans-serif;
+	font-weight: bolder;
+	letter-spacing: 0.02em;
+	line-height: 1.35;
+	opacity: 0.95;
 }
 
 .situvis-banner-title {
 	font-size: clamp(1.65rem, 4.4vw, 2.475rem);
-	font-weight: bold;
-	letter-spacing: 0.02em;
-	line-height: 1.2;
 }
 
 .situvis-banner-desc {
 	font-size: clamp(1.224rem, 2.88vw, 1.44rem);
-	font-weight: 400;
 	margin-top: 8px;
-	opacity: 0.95;
+}
+
+/* ---------- 索引切换条（banner 下方） ---------- */
+.situvis-nav {
+	position: relative;
+	z-index: 2;
+	background: #fff;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+	border-bottom: 1px solid #e8e8e8;
+}
+
+.situvis-nav-inner {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0;
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 0 10px;
+}
+
+.situvis-nav-item {
+	display: inline-block;
+	padding: 14px 28px;
+	font-size: 14px;
+	font-family:sans-serif;
+	font-weight: 400;
+	letter-spacing: 0.02em;
+	color: #555;
+	text-decoration: none;
+	border-bottom: 3px solid transparent;
+	transition: color 0.2s, border-color 0.2s;
+}
+
+.situvis-nav-item:hover {
+	color: #333;
+}
+
+.situvis-nav-item.active {
+	color: #ff6e9c;
+	border-bottom-color: #64c3ff;
+}
+
+.situvis-guidance-placeholder {
+	min-height: 60vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: #f8f9fa;
+	padding: 48px;
+}
+
+.situvis-guidance-placeholder .text-muted {
+	font-size: 16px;
 }
 
 /* ---------- 竖版主布局 ---------- */

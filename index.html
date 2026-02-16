@@ -3,6 +3,15 @@
 
 <head>
 	<meta charset="utf-8">
+	<!-- 在 GitHub Pages 子路径下修正相对路径，避免与 localhost 表现不一致 -->
+	<script>
+		(function() {
+			if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') return;
+			var path = location.pathname;
+			var base = path.endsWith('/') ? path : path.replace(/\/?$/, '/');
+			document.write('<base href="' + base + '">');
+		})();
+	</script>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="">
@@ -29,14 +38,23 @@
 </head>
 
 <body>
-	<!-- ArtisticVis 风格：顶部横幅 -->
+	<!-- ArtisticVis 风格：顶部横幅（p5 画布作为背景，原图已隐藏） -->
 	<header class="situvis-banner">
-		<div class="situvis-banner-bg"></div>
+		<div class="situvis-banner-bg" id="banner-canvas-container"></div>
 		<h1 class="situvis-banner-title">Designing Situated Visualization: A Dual Perspectives Paradigm</h1>
 		<p class="situvis-banner-desc">Situated Visualization Design Space</p>
 	</header>
 
-	<!-- 竖版布局：左侧固定筛选栏 + 右侧主内容 -->
+	<!-- 索引切换条：Cases / Guidance -->
+	<nav class="situvis-nav">
+		<div class="situvis-nav-inner">
+			<a href="#" class="situvis-nav-item active" data-page="cases">cases</a>
+			<a href="#" class="situvis-nav-item" data-page="guidance">guidance</a>
+		</div>
+	</nav>
+
+	<!-- 竖版布局：左侧固定筛选栏 + 右侧主内容（Cases 页） -->
+	<div id="page-cases" class="situvis-page-wrap">
 	<div class="situvis-page">
 		<aside class="situvis-sidebar">
 			<!-- 搜索 -->
@@ -74,35 +92,35 @@
 								<div id="collapseFour" class="panel-collapse collapse in" role="tabpanel"
 									aria-labelledby="headingOne">
 									<div class="panel-body idvx-Goal-panelBody">
-										<div class="idvx-collapsed-container" data-toggle="buttons">
+										<div class="idvx-collapsed-container">
 		
 											<button id="presentation-one" type="button" name="comprehension"
-												class="btn btn-primary idvx-collapsed-entry active" aria-pressed="false"
+												class="btn btn-primary idvx-collapsed-entry" aria-pressed="false"
 												autocomplete="off" data-toggle="tooltip" title="comprehension">
 												<input type="checkbox" autocomplete="off">
 											</button>
 											<button id="presentation-two" type="button" name="communication"
-												class="btn btn-primary idvx-collapsed-entry active" aria-pressed="false"
+												class="btn btn-primary idvx-collapsed-entry" aria-pressed="false"
 												autocomplete="off" data-toggle="tooltip" title="communication">
 												<input type="checkbox" autocomplete="off">
 											</button>
 											<button id="presentation-3" type="button" name="archive"
-												class="btn btn-primary idvx-collapsed-entry active" aria-pressed="false"
+												class="btn btn-primary idvx-collapsed-entry" aria-pressed="false"
 												autocomplete="off" data-toggle="tooltip" title="archive">
 												<input type="checkbox" autocomplete="off">
 											</button>
 											<button id="presentation-4" type="button" name="engagement"
-												class="btn btn-primary idvx-collapsed-entry active" aria-pressed="false"
+												class="btn btn-primary idvx-collapsed-entry" aria-pressed="false"
 												autocomplete="off" data-toggle="tooltip" title="engagement">
 												<input type="checkbox" autocomplete="off">
 											</button>
 											<button id="presentation-5" type="button" name="reflection"
-												class="btn btn-primary idvx-collapsed-entry active" aria-pressed="false"
+												class="btn btn-primary idvx-collapsed-entry" aria-pressed="false"
 												autocomplete="off" data-toggle="tooltip" title="reflection">
 												<input type="checkbox" autocomplete="off">
 											</button>
 											<button id="presentation-6" type="button" name="analysis"
-												class="btn btn-primary idvx-collapsed-entry active" aria-pressed="false"
+												class="btn btn-primary idvx-collapsed-entry" aria-pressed="false"
 												autocomplete="off" data-toggle="tooltip" title="analysis">
 												<input type="checkbox" autocomplete="off">
 											</button>
@@ -125,19 +143,19 @@
 								<div id="collapseFour" class="panel-collapse collapse in" role="tabpanel"
 									aria-labelledby="headingOne">
 									<div class="panel-body idvx-User-panelBody">
-										<div class="idvx-collapsed-container" data-toggle="buttons">
+										<div class="idvx-collapsed-container">
 											<button id="four-one" type="button" name="Individual"
-												class="btn btn-primary idvx-collapsed-entry active" aria-pressed="false"
+												class="btn btn-primary idvx-collapsed-entry" aria-pressed="false"
 												autocomplete="off" data-toggle="tooltip" title="Individual">
 												<input type="checkbox" autocomplete="off">
 											</button>
 											<button id="four-two" type="button" name="Group"
-												class="btn btn-primary idvx-collapsed-entry active" aria-pressed="false"
+												class="btn btn-primary idvx-collapsed-entry" aria-pressed="false"
 												autocomplete="off" data-toggle="tooltip" title="Group">
 												<input type="checkbox" autocomplete="off">
 											</button>
 											<button id="four-three" type="button" name="Public"
-												class="btn btn-primary idvx-collapsed-entry active" aria-pressed="false"
+												class="btn btn-primary idvx-collapsed-entry" aria-pressed="false"
 												autocomplete="off" data-toggle="tooltip" title="Public">
 												<input type="checkbox" autocomplete="off">
 											</button>
@@ -158,25 +176,25 @@
 							<div id="collapseFour" class="panel-collapse collapse in" role="tabpanel"
 								aria-labelledby="headingOne">
 								<div class="panel-body idvx-Presentation-panelBody">
-									<div class="idvx-collapsed-container" data-toggle="buttons">
+									<div class="idvx-collapsed-container">
 		
 										<button id="Seven-one" type="button" name="XR"
-											class="btn btn-primary idvx-collapsed-entry active" aria-pressed="false"
+											class="btn btn-primary idvx-collapsed-entry" aria-pressed="false"
 											autocomplete="off" data-toggle="tooltip" title="XR">
 											<input type="checkbox" autocomplete="off">
 										</button>
 										<button id="Seven-two" type="button" name="Event"
-											class="btn btn-primary idvx-collapsed-entry active" aria-pressed="false"
+											class="btn btn-primary idvx-collapsed-entry" aria-pressed="false"
 											autocomplete="off" data-toggle="tooltip" title="Event">
 											<input type="checkbox" autocomplete="off">
 										</button>
 										<button id="Seven-three" type="button" name="Artifact"
-											class="btn btn-primary idvx-collapsed-entry active" aria-pressed="false"
+											class="btn btn-primary idvx-collapsed-entry" aria-pressed="false"
 											autocomplete="off" data-toggle="tooltip" title="Artifact">
 											<input type="checkbox" autocomplete="off">
 										</button>
 										<button id="Seven-four" type="button" name="Installation"
-											class="btn btn-primary idvx-collapsed-entry active" aria-pressed="false"
+											class="btn btn-primary idvx-collapsed-entry" aria-pressed="false"
 											autocomplete="off" data-toggle="tooltip" title="Installation">
 											<input type="checkbox" autocomplete="off">
 										</button>
@@ -197,25 +215,25 @@
 								<div id="collapseFour" class="panel-collapse collapse in" role="tabpanel"
 									aria-labelledby="headingOne">
 									<div class="panel-body idvx-representationForm-panelBody">
-										<div class="idvx-collapsed-container" data-toggle="buttons">
+										<div class="idvx-collapsed-container">
 		
 											<button id="rf-one" type="button" name="visual"
-												class="btn btn-primary idvx-collapsed-entry active" aria-pressed="false"
+												class="btn btn-primary idvx-collapsed-entry" aria-pressed="false"
 												autocomplete="off" data-toggle="tooltip" title="visual">
 												<input type="checkbox" autocomplete="off">
 											</button>
 											<button id="rf-two" type="button" name="haptic"
-												class="btn btn-primary idvx-collapsed-entry active" aria-pressed="false"
+												class="btn btn-primary idvx-collapsed-entry" aria-pressed="false"
 												autocomplete="off" data-toggle="tooltip" title="haptic">
 												<input type="checkbox" autocomplete="off">
 											</button>
 											<button id="rf-3" type="button" name="sound"
-												class="btn btn-primary idvx-collapsed-entry active" aria-pressed="false"
+												class="btn btn-primary idvx-collapsed-entry" aria-pressed="false"
 												autocomplete="off" data-toggle="tooltip" title="sound">
 												<input type="checkbox" autocomplete="off">
 											</button>
 											<button id="rf-4" type="button" name="other (taste, smell)"
-												class="btn btn-primary idvx-collapsed-entry active" aria-pressed="false"
+												class="btn btn-primary idvx-collapsed-entry" aria-pressed="false"
 												autocomplete="off" data-toggle="tooltip" title="other (taste, smell)">
 												<input type="checkbox" autocomplete="off">
 											</button>
@@ -237,24 +255,24 @@
 								<div id="collapseFour" class="panel-collapse collapse in" role="tabpanel"
 									aria-labelledby="headingOne">
 									<div class="panel-body idvx-SituatednessScale-panelBody">
-										<div class="idvx-collapsed-container" data-toggle="buttons">
+										<div class="idvx-collapsed-container">
 		
 											<button id="situ-scale-one" type="small" name="small"
-												class="btn btn-primary idvx-collapsed-entry active" aria-pressed="false"
+												class="btn btn-primary idvx-collapsed-entry" aria-pressed="false"
 												autocomplete="off" data-toggle="tooltip" title="small">
 												<input type="checkbox" autocomplete="off">
 											</button>
 											<button id="situ-scale-two" type="medium" name="medium"
-												class="btn btn-primary idvx-collapsed-entry active" aria-pressed="false"
+												class="btn btn-primary idvx-collapsed-entry" aria-pressed="false"
 												autocomplete="off" data-toggle="tooltip" title="medium">
 												<input type="checkbox" autocomplete="off">
 											</button>
 											<button id="situ-scale-3" type="large" name="large"
-												class="btn btn-primary idvx-collapsed-entry active" aria-pressed="false"
+												class="btn btn-primary idvx-collapsed-entry" aria-pressed="false"
 												autocomplete="off" data-toggle="tooltip" title="large">
 												<input type="checkbox" autocomplete="off">
 											</button>
-											<!-- <button id="situ-4" type="button" name="environment proxy" class="btn btn-primary idvx-collapsed-entry active" aria-pressed="false" autocomplete="off" data-toggle="tooltip" title="environment proxy">
+											<!-- <button id="situ-4" type="button" name="environment proxy" class="btn btn-primary idvx-collapsed-entry" aria-pressed="false" autocomplete="off" data-toggle="tooltip" title="environment proxy">
 																<input type="checkbox" autocomplete="off">
 															</button> -->
 											<!-- </button>															 -->
@@ -275,25 +293,25 @@
 								<div id="collapseFour" class="panel-collapse collapse in" role="tabpanel"
 									aria-labelledby="headingOne">
 									<div class="panel-body idvx-SituatednessSemantics-panelBody">
-										<div class="idvx-collapsed-container" data-toggle="buttons">
+										<div class="idvx-collapsed-container">
 		
 											<button id="situ-sem-one" type="Indexical" name="Indexical"
-												class="btn btn-primary idvx-collapsed-entry active" aria-pressed="false"
+												class="btn btn-primary idvx-collapsed-entry" aria-pressed="false"
 												autocomplete="off" data-toggle="tooltip" title="Indexical">
 												<input type="checkbox" autocomplete="off">
 											</button>
 											<button id="situ-sem-two" type="Symbolic" name="Symbolic"
-												class="btn btn-primary idvx-collapsed-entry active" aria-pressed="false"
+												class="btn btn-primary idvx-collapsed-entry" aria-pressed="false"
 												autocomplete="off" data-toggle="tooltip" title="Symbolic">
 												<input type="checkbox" autocomplete="off">
 											</button>
 											<button id="situ-sem-three" type="Iconic" name="Iconic"
-												class="btn btn-primary idvx-collapsed-entry active" aria-pressed="false"
+												class="btn btn-primary idvx-collapsed-entry" aria-pressed="false"
 												autocomplete="off" data-toggle="tooltip" title="Iconic">
 												<input type="checkbox" autocomplete="off">
 											</button>
 		
-											<!-- <button id="situ-4" type="button" name="environment proxy" class="btn btn-primary idvx-collapsed-entry active" aria-pressed="false" autocomplete="off" data-toggle="tooltip" title="environment proxy">
+											<!-- <button id="situ-4" type="button" name="environment proxy" class="btn btn-primary idvx-collapsed-entry" aria-pressed="false" autocomplete="off" data-toggle="tooltip" title="environment proxy">
 																<input type="checkbox" autocomplete="off">
 															</button> -->
 											<!-- </button>															 -->
@@ -314,25 +332,25 @@
 								<div id="collapseFour" class="panel-collapse collapse in" role="tabpanel"
 									aria-labelledby="headingOne">
 									<div class="panel-body idvx-dataOrigin-panelBody">
-										<div class="idvx-collapsed-container" data-toggle="buttons">
+										<div class="idvx-collapsed-container">
 		
 											<button id="layout-one" type="button" name="Environmental data"
-												class="btn btn-primary idvx-collapsed-entry active" aria-pressed="false"
+												class="btn btn-primary idvx-collapsed-entry" aria-pressed="false"
 												autocomplete="off" data-toggle="tooltip" title="Environmental data">
 												<input type="checkbox" autocomplete="off">
 											</button>
 											<button id="layout-two" type="button" name="Participant-generated"
-												class="btn btn-primary idvx-collapsed-entry active" aria-pressed="false"
+												class="btn btn-primary idvx-collapsed-entry" aria-pressed="false"
 												autocomplete="off" data-toggle="tooltip" title="Participant-generated">
 												<input type="checkbox" autocomplete="off">
 											</button>
 											<button id="layout-3" type="button" name="Collected&Uploaded"
-												class="btn btn-primary idvx-collapsed-entry active" aria-pressed="false"
+												class="btn btn-primary idvx-collapsed-entry" aria-pressed="false"
 												autocomplete="off" data-toggle="tooltip" title="Collected&Uploaded">
 												<input type="checkbox" autocomplete="off">
 											</button>
 											<button id="layout-4" type="button" name="Unspecified"
-												class="btn btn-primary idvx-collapsed-entry active" aria-pressed="false"
+												class="btn btn-primary idvx-collapsed-entry" aria-pressed="false"
 												autocomplete="off" data-toggle="tooltip" title="Unspecified">
 												<input type="checkbox" autocomplete="off">
 											</button>
@@ -354,42 +372,42 @@
 								<div id="collapseFour" class="panel-collapse collapse in" role="tabpanel"
 									aria-labelledby="headingOne">
 									<div class="panel-body idvx-Topic-panelBody">
-										<div class="idvx-collapsed-container" data-toggle="buttons">
+										<div class="idvx-collapsed-container">
 											<button id="two-one" type="button" name="Society&History(include media)"
-												class="btn btn-primary idvx-collapsed-entry active" aria-pressed="false"
+												class="btn btn-primary idvx-collapsed-entry" aria-pressed="false"
 												autocomplete="off" data-toggle="tooltip" title="Society&History">
 												<input type="checkbox" autocomplete="off">
 											</button>
 											<button id="two-two" type="button" name="Entertainment, Sports&Culture"
-												class="btn btn-primary idvx-collapsed-entry active" aria-pressed="false"
+												class="btn btn-primary idvx-collapsed-entry" aria-pressed="false"
 												autocomplete="off" data-toggle="tooltip" title="Entertainment, Sports&Culture">
 												<input type="checkbox" autocomplete="off">
 											</button>
 											<button id="two-3" type="button"
 												name="Environment (Surroudings/Nature), Geography&Ecology"
-												class="btn btn-primary idvx-collapsed-entry active" aria-pressed="false"
+												class="btn btn-primary idvx-collapsed-entry" aria-pressed="false"
 												autocomplete="off" data-toggle="tooltip"
 												title="Environment (Surroudings/Nature), Geography&Ecology">
 												<input type="checkbox" autocomplete="off">
 											</button>
 											<button id="two-4" type="button" name="Health, Life & Emotion"
-												class="btn btn-primary idvx-collapsed-entry active" aria-pressed="false"
+												class="btn btn-primary idvx-collapsed-entry" aria-pressed="false"
 												autocomplete="off" data-toggle="tooltip" title="Health, Life & Emotion">
 												<input type="checkbox" autocomplete="off">
 											</button>
 											<button id="two-5" type="button" name="Industry, Architecture&Engineering"
-												class="btn btn-primary idvx-collapsed-entry active" aria-pressed="false"
+												class="btn btn-primary idvx-collapsed-entry" aria-pressed="false"
 												autocomplete="off" data-toggle="tooltip"
 												title="Industry, Architecture&Engineering">
 												<input type="checkbox" autocomplete="off">
 											</button>
 											<button id="two-6" type="button" name="Science"
-												class="btn btn-primary idvx-collapsed-entry active" aria-pressed="false"
+												class="btn btn-primary idvx-collapsed-entry" aria-pressed="false"
 												autocomplete="off" data-toggle="tooltip" title="Science">
 												<input type="checkbox" autocomplete="off">
 											</button>
 											<button id="two-7" type="button" name="Unspecified&Mixed Topics"
-												class="btn btn-primary idvx-collapsed-entry active" aria-pressed="false"
+												class="btn btn-primary idvx-collapsed-entry" aria-pressed="false"
 												autocomplete="off" data-toggle="tooltip" title="Unspecified&Mixed Topics">
 												<input type="checkbox" autocomplete="off">
 											</button>
@@ -412,7 +430,14 @@
 			</div>
 		</main>
 	</div>
+	</div>
 
+	<!-- Guidance 页（空白） -->
+	<div id="page-guidance" class="situvis-page-wrap" style="display: none;">
+		<div class="situvis-guidance-placeholder">
+			<p class="text-muted">Guidance content coming soon.</p>
+		</div>
+	</div>
 
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 			<div class="modal-dialog" role="document">
@@ -463,49 +488,14 @@
 		<!-- Placed at the end of the document so the pages load faster -->
 		<script type="text/javascript" src="js/vis.js"></script>
 		<script type="text/javascript" src="js/compsvg.js"></script>
+		<script src="js/p5.min.js"></script>
+		<script src="js/banner-bg.js"></script>
 		<script src="js/driver.js"></script>
 		<script src="js/bootstrap.min.js"></script>
 
 		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 		<!-- <script src="js/ie10-viewport-bug-workaround.js"></script> -->
-		<!-- Code injected by live-server -->
-		<script type="text/javascript">
-			// <![CDATA[  <-- For SVG support
-			if ('WebSocket' in window) {
-				(function () {
-					function refreshCSS() {
-						var sheets = [].slice.call(document.getElementsByTagName("link"));
-						var head = document.getElementsByTagName("head")[0];
-						for (var i = 0; i < sheets.length; ++i) {
-							var elem = sheets[i];
-							var parent = elem.parentElement || head;
-							parent.removeChild(elem);
-							var rel = elem.rel;
-							if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
-								var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
-								elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
-							}
-							parent.appendChild(elem);
-						}
-					}
-					var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
-					var address = protocol + window.location.host + window.location.pathname + '/ws';
-					var socket = new WebSocket(address);
-					socket.onmessage = function (msg) {
-						if (msg.data == 'reload') window.location.reload();
-						else if (msg.data == 'refreshcss') refreshCSS();
-					};
-					if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
-						console.log('Live reload enabled.');
-						sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
-					}
-				})();
-			}
-			else {
-				console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
-			}
-	// ]]>
-		</script>
+
 </body>
 
 </html>
