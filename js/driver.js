@@ -134,35 +134,66 @@ function relevanceScore(item) {
     return score;
 }
 
+function onFilterToggle(element, key) {
+    var keywordOnClick = element.attr("name");
+    var values = parameter[key];
+    if (!values || !keywordOnClick) return;
+
+    var nextActive = !element.hasClass("active");
+    element.toggleClass("active", nextActive);
+    element.attr("aria-pressed", nextActive ? "true" : "false");
+    element.find("input[type='checkbox']").prop("checked", nextActive);
+
+    var idx = $.inArray(keywordOnClick, values);
+    if (nextActive && idx < 0) {
+        values.push(keywordOnClick);
+    } else if (!nextActive && idx >= 0) {
+        values.splice(idx, 1);
+    }
+
+    updateDisplayedContent();
+}
+
 //bind functions concerned to all handlers
 function setupHandlers() {
     $("#idvx-searchBar-button").on("click", onSearchC);
-    $("#input-searchBar").on("focus", searchCSS).on("blur", searchCSSReturn);
-    $("#idvx-NDpanel").on("click", ".idvx-bottom-btn", onFilterToggleND1);
-    $(".idvx-User-panelBody").on("click", ".idvx-collapsed-entry", onFilterToggleND1); //icons
-    $("#idvx-NDpanel").on("click", ".idvx-bottom-btn", onFilterToggleND2);
-    $(".idvx-Topic-panelBody").on("click", ".idvx-collapsed-entry", onFilterToggleND2); //icons
-    $("#idvx-NDpanel").on("click", ".idvx-bottom-btn", onFilterToggleND3);
-    $(".idvx-Presentation-panelBody").on("click", ".idvx-collapsed-entry", onFilterToggleND3); //icons
-    $("#idvx-NDpanel").on("click", ".idvx-bottom-btn", onFilterToggleND4);
-    $(".idvx-Goal-panelBody").on("click", ".idvx-collapsed-entry", onFilterToggleND4); //icons
-    $("#idvx-NDpanel").on("click", ".idvx-bottom-btn", onFilterToggleND5);
-    $(".idvx-dataOrigin-panelBody").on("click", ".idvx-collapsed-entry", onFilterToggleND5); //icons
-    $("#idvx-NDpanel").on("click", ".idvx-bottom-btn", onFilterToggleND6);
-    $(".idvx-SituatednessScale-panelBody").on("click", ".idvx-collapsed-entry", onFilterToggleND6); //icons
-    $("#idvx-NDpanel").on("click", ".idvx-bottom-btn", onFilterToggleND6);
-    $(".idvx-SituatednessSemantics-panelBody").on("click", ".idvx-collapsed-entry", onFilterToggleND8); //icons
-    $("#idvx-NDpanel").on("click", ".idvx-bottom-btn", onFilterToggleND7);
-    $(".idvx-representationForm-panelBody").on("click", ".idvx-collapsed-entry", onFilterToggleND7); //icons
-    $("#idvx-videoContainer").on("click", ".idvx-singleContainer", onVideoClick);
+    $("#input-searchBar")
+        .on("focus", searchCSS)
+        .on("blur", searchCSSReturn)
+        .on("keydown", function(e) {
+            if (e.key === "Enter") {
+                e.preventDefault();
+                onSearchC();
+            }
+        });
+    $(".idvx-User-panelBody").on("click", ".idvx-collapsed-entry", function() { onFilterToggle($(this), "User"); });
+    $(".idvx-Topic-panelBody").on("click", ".idvx-collapsed-entry", function() { onFilterToggle($(this), "Topic"); });
+    $(".idvx-Presentation-panelBody").on("click", ".idvx-collapsed-entry", function() { onFilterToggle($(this), "Presentation"); });
+    $(".idvx-Goal-panelBody").on("click", ".idvx-collapsed-entry", function() { onFilterToggle($(this), "Goal"); });
+    $(".idvx-dataOrigin-panelBody").on("click", ".idvx-collapsed-entry", function() { onFilterToggle($(this), "dataOrigin"); });
+    $(".idvx-SituatednessScale-panelBody").on("click", ".idvx-collapsed-entry", function() { onFilterToggle($(this), "SituatednessScale"); });
+    $(".idvx-SituatednessSemantics-panelBody").on("click", ".idvx-collapsed-entry", function() { onFilterToggle($(this), "SituatednessSemantics"); });
+    $(".idvx-representationForm-panelBody").on("click", ".idvx-collapsed-entry", function() { onFilterToggle($(this), "representationForm"); });
+    $("#idvx-videoContainer")
+        .on("click", ".idvx-singleContainer", onVideoClick)
+        .on("keydown", ".idvx-singleContainer", function(e) {
+            if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                onVideoClick.call(this);
+            }
+        });
     $("#myModal").on("hidden.bs.modal", onModalHidden);
 }
 
 
 var itemsMap = {}; 
 var itemsShortMap = {};
+var itemsById = {};
 // 搜索时匹配的字段（与 data.json 结构一致）
 var searchKeys = ['Title', 'Description'];
+var hasAuthorData = false;
+var hasYearData = false;
+var yearBounds = [1996, 2022];
 
 // 瀑布流分批加载：当前筛选结果全集、已显示数量、每批条数
 var eligibleItemsFull = [];
@@ -175,27 +206,55 @@ function loadData() {
     if (document.querySelector("base") && document.querySelector("base").href) {
         dataUrl = document.querySelector("base").href + "list/data.json";
     }
-    $.getJSON(dataUrl)
-        .done(function(data) {
-            itemsMap = {};
-            itemsShortMap = {};
-            $.each(data, function(i, d) {
-                if(!itemsShortMap[d.id])
-                    itemsShortMap[d.id] = {"id":d.id, "User":d.User,"Topic":d.Topic, "Presentation":d.Presentation, "Goal":d.Goal, "dataOrigin":d.dataOrigin, "Sourcelink":d.Sourcelink, "SituatednessSemantics":d.SituatednessSemantics,"SituatednessScale":d.SituatednessScale, "representationForm":d.representationForm, "Description":d.Description }; 
-                itemsMap[i] = d;
-            });
-            configureTimeFilter();
-            updateDisplayedContent();
-        })
-        .fail(function(jqxhr, textStatus, error) {
-            var container = $("#idvx-videoContainer");
-            container.empty();
-            container.append(
-                "<p class=\"text-muted\">Failed to load data.</p>" +
-                "<p class=\"text-muted\" style=\"font-size:12px;\">list/data.json could not be loaded. Check the browser console (F12) for details. If you are on GitHub Pages, ensure the repo contains the list/ folder and data.json.</p>"
-            );
-            console.error("loadData failed:", textStatus, error, jqxhr);
+    function onDone(data) {
+        itemsMap = {};
+        itemsShortMap = {};
+        itemsById = {};
+        hasAuthorData = false;
+        hasYearData = false;
+        yearBounds = [1996, 2022];
+        var minYear = Infinity;
+        var maxYear = -Infinity;
+        $.each(data, function(i, d) {
+            if(!itemsShortMap[d.id])
+                itemsShortMap[d.id] = {"id":d.id, "User":d.User,"Topic":d.Topic, "Presentation":d.Presentation, "Goal":d.Goal, "dataOrigin":d.dataOrigin, "Sourcelink":d.Sourcelink, "SituatednessSemantics":d.SituatednessSemantics,"SituatednessScale":d.SituatednessScale, "representationForm":d.representationForm, "Description":d.Description };
+            itemsMap[i] = d;
+            itemsById[d.id] = d;
+            hasAuthorData = hasAuthorData || !!d.Author;
+            hasYearData = hasYearData || d.years != null;
+            if (d.years != null && !isNaN(Number(d.years))) {
+                minYear = Math.min(minYear, Number(d.years));
+                maxYear = Math.max(maxYear, Number(d.years));
+            }
         });
+        if (hasYearData && isFinite(minYear) && isFinite(maxYear)) {
+            yearBounds = [minYear, maxYear];
+        }
+        syncDataDrivenUI();
+        configureTimeFilter();
+        updateDisplayedContent();
+    }
+    var fallbackTried = false;
+    function onFail(jqxhr, textStatus, error) {
+        if (!fallbackTried && (jqxhr && jqxhr.status === 503 || textStatus === "error")) {
+            fallbackTried = true;
+            $.getJSON("list/data.json").done(onDone).fail(onFail);
+            return;
+        }
+        var container = $("#idvx-videoContainer");
+        container.empty();
+        var msg = "list/data.json 加载失败。";
+        if (jqxhr && jqxhr.status === 503) msg += " 服务器暂时不可用(503)，请稍后刷新页面。";
+        else if (jqxhr && jqxhr.status === 404) msg += " 请确认站点根目录下有 list/data.json（例如 GitHub Pages 发布完整仓库）。";
+        else msg += " 请查看控制台(F12)或确认网络与 list/data.json 路径。";
+        container.append("<p class=\"text-muted\">" + msg + "</p>");
+        console.error("loadData failed:", textStatus, error, jqxhr);
+    }
+    $.getJSON(dataUrl).done(onDone).fail(onFail);
+}
+
+function syncDataDrivenUI() {
+    $(".idvx-timeFilter-relativeNum").toggle(hasYearData);
 }
 
 function updateDisplayedContent() {
@@ -256,7 +315,7 @@ function updateDisplayedContent() {
 
         if(eligibleItems[eligibleItems.length-1] && (eligibleItems[eligibleItems.length-1]["id"] == ID))
             return ;
-        var itemInfo = {"id":d.id, "Title":d.Title, "Author":d.Author || "", "User":d.User,"Topic":d.Topic, "Presentation":d.Presentation, "Goal":d.Goal, "dataOrigin":d.dataOrigin, "Sourcelink":d.Sourcelink, "SituatednessSemantics":d.SituatednessSemantics,"SituatednessScale":d.SituatednessScale, "representationForm":d.representationForm, "Description":d.Description };
+        var itemInfo = {"id":d.id, "Title":d.Title, "Author":d.Author || "", "User":d.User,"Topic":d.Topic, "Presentation":d.Presentation, "Goal":d.Goal, "dataOrigin":d.dataOrigin, "Sourcelink":d.Sourcelink, "SituatednessSemantics":d.SituatednessSemantics,"SituatednessScale":d.SituatednessScale, "representationForm":d.representationForm, "Description":d.Description, "years": d.years };
         eligibleItems.push(itemInfo);
     });
 
@@ -276,53 +335,125 @@ function updateDisplayedContent() {
 
 	// 仅排序，不按分数剔除：没有该标签的已在上方过滤掉；有该标签的无论分数高低都会显示，只按相关度排先后
 	eligibleItems.sort(function(a, b) {
+        var yearA = a.years != null && !isNaN(Number(a.years)) ? Number(a.years) : -Infinity;
+        var yearB = b.years != null && !isNaN(Number(b.years)) ? Number(b.years) : -Infinity;
+        if (yearA !== yearB) {
+            return yearB - yearA;
+        }
 		var sa = relevanceScore(a);
 		var sb = relevanceScore(b);
-		return sb - sa;
+        if (sa !== sb) {
+		    return sb - sa;
+        }
+        return (a.Title || "").localeCompare(b.Title || "");
 	});
 
     eligibleItemsFull = eligibleItems;
     displayedCount = 0;
+    teardownWaterfallScroll();
 
     if(!eligibleItems.length) {
         container.append("<p class=\"text-muted\">No eligible cases found.</p>");
     } else {
         appendWaterfallBatch(0, WATERFALL_PAGE_SIZE);
-        // 滚动到底时加载更多（主内容区由页面滚动，监听 window）
-        $(window).off("scroll.idvxWaterfall").on("scroll.idvxWaterfall", function() {
-            var threshold = 280;
-            var nearBottom = ($(window).scrollTop() + $(window).height()) > ($(document).height() - threshold);
-            if (nearBottom && displayedCount < eligibleItemsFull.length) {
-                appendWaterfallBatch(displayedCount, displayedCount + WATERFALL_PAGE_SIZE);
-            }
-        });
+        setupWaterfallScroll();
+        fillViewportIfNeeded();
     }
     updateDisplayedCount();
+}
+
+function shouldLoadMore() {
+    if (displayedCount >= eligibleItemsFull.length) {
+        return false;
+    }
+
+    var mainEl = $(".situvis-main")[0];
+    if (mainEl && mainEl.scrollHeight > mainEl.clientHeight + 20) {
+        return mainEl.scrollTop + mainEl.clientHeight >= mainEl.scrollHeight - 280;
+    }
+
+    return ($(window).scrollTop() + $(window).height()) > ($(document).height() - 280);
+}
+
+function maybeAppendNextBatch() {
+    if (shouldLoadMore()) {
+        appendWaterfallBatch(displayedCount, displayedCount + WATERFALL_PAGE_SIZE);
+    }
+}
+
+function setupWaterfallScroll() {
+    $(window).off("scroll.idvxWaterfall").on("scroll.idvxWaterfall", maybeAppendNextBatch);
+    $(".situvis-main").off("scroll.idvxWaterfall").on("scroll.idvxWaterfall", maybeAppendNextBatch);
+}
+
+function teardownWaterfallScroll() {
+    $(window).off("scroll.idvxWaterfall");
+    $(".situvis-main").off("scroll.idvxWaterfall");
+}
+
+function fillViewportIfNeeded() {
+    var safetyCounter = 0;
+    while (displayedCount < eligibleItemsFull.length && shouldLoadMore() && safetyCounter < 10) {
+        appendWaterfallBatch(displayedCount, displayedCount + WATERFALL_PAGE_SIZE);
+        safetyCounter += 1;
+    }
 }
 
 function formatArr(v) {
     return Array.isArray(v) ? v.join(", ") : (v || "—");
 }
+
+function createMetaLine(label, value) {
+    return $("<div class=\"idvx-card-meta-row\">")
+        .append($("<span class=\"idvx-card-meta-label\">").text(label))
+        .append(document.createTextNode(" " + formatArr(value)));
+}
+
+function buildCardSubtitle(item) {
+    var parts = [];
+    if (item.years != null && !isNaN(Number(item.years))) {
+        parts.push(String(item.years));
+    }
+    if (item.Author) {
+        parts.push(item.Author);
+    }
+    if (!parts.length) {
+        return null;
+    }
+    return $("<div class=\"idvx-card-subtitle\">").text(parts.join(" · "));
+}
+
 // 向 #idvx-videoContainer 追加一批瀑布流卡片（上图 + 标题 + 作者 + 共有信息行，统一卡片高度）
 function appendWaterfallBatch(from, to) {
     var container = $("#idvx-videoContainer");
     var items = eligibleItemsFull.slice(from, Math.min(to, eligibleItemsFull.length));
     $.each(items, function(i, d) {
-        var element = $("<div class=\"idvx-singleContainer idvx-card-with-caption\" data-toggle=\"tooltip\" data-target=\"#myModal\">");
-        element.attr("data-id", d.id);
+        var element = $("<div class=\"idvx-singleContainer idvx-card-with-caption\">");
+        element.attr({
+            "data-id": d.id,
+            "role": "button",
+            "tabindex": "0",
+            "aria-label": (d.Title || "Open case details") + " details"
+        });
         var imgWrap = $("<div class=\"idvx-card-imgWrap\">");
         var image = $("<img class=\"idvx-videoImg\" loading=\"lazy\">");
-        image.attr("src", "thumbnail/" + d.id + ".png");
+        image.attr({
+            "src": "thumbnail/" + d.id + ".png",
+            "alt": (d.Title || "Case") + " thumbnail"
+        });
         imgWrap.append(image);
         element.append(imgWrap);
         var caption = $("<div class=\"idvx-card-caption\">");
         caption.append($("<div class=\"idvx-card-title\">").text(d.Title || ""));
-        caption.append($("<div class=\"idvx-card-author\">").text(d.Author || "—"));
-        caption.append($("<div class=\"idvx-card-meta\">").html(
-            "<span class=\"idvx-card-meta-label\">Topic</span> " + formatArr(d.Topic) + "<br>" +
-            "<span class=\"idvx-card-meta-label\">Presentation</span> " + formatArr(d.Presentation) + "<br>" +
-            "<span class=\"idvx-card-meta-label\">Goal</span> " + formatArr(d.Goal)
-        ));
+        var subtitle = buildCardSubtitle(d);
+        if (subtitle) {
+            caption.append(subtitle);
+        }
+        var meta = $("<div class=\"idvx-card-meta\">");
+        meta.append(createMetaLine("Topic", d.Topic));
+        meta.append(createMetaLine("Presentation", d.Presentation));
+        meta.append(createMetaLine("Goal", d.Goal));
+        caption.append(meta);
         element.append(caption);
         container.append(element);
     });
@@ -367,10 +498,9 @@ function searchCSSReturn () {
 
 // Search Bar
 function onSearchC() {
-    parameter.txt = $("#input-searchBar").val().toLowerCase();
+    parameter.txt = $.trim($("#input-searchBar").val() || "").toLowerCase();
     $("#input-searchBar").blur();
     updateDisplayedContent();
-    var txt = parameter.txt;
 }
 
 function isRelevantToSearch(item) {
@@ -391,13 +521,26 @@ function isRelevantToSearch(item) {
 var timeFilterNum = [1996,2022];  
 
 function configureTimeFilter() {
+    if (!hasYearData) {
+        parameter.year = timeFilterNum.slice();
+        if ($("#timeFilter").hasClass("ui-slider")) {
+            $("#timeFilter").slider("destroy");
+        }
+        return;
+    }
+
+    timeFilterNum = yearBounds.slice();
+    parameter.year = yearBounds.slice();
     $("#left_Num").text(timeFilterNum[0]);
     $("#right_Num").text(timeFilterNum[1]);
+    if ($("#timeFilter").hasClass("ui-slider")) {
+        $("#timeFilter").slider("destroy");
+    }
     $("#timeFilter").slider({
         range: true,
-        min: 199600,
-        max: 202220,
-        values: [199600, 202220],
+        min: timeFilterNum[0] * 100,
+        max: timeFilterNum[1] * 100 + 20,
+        values: [timeFilterNum[0] * 100, timeFilterNum[1] * 100 + 20],
         slide: function(event, ui) {
             timeFilterNum[0] = parseInt(ui.values[0]/ 100);
             timeFilterNum[1] = parseInt(ui.values[1]/ 100);
@@ -411,177 +554,11 @@ function configureTimeFilter() {
     });
 };
 
-
-// 筛选按钮点击：先切换 active 再根据当前状态更新 parameter，避免与 Bootstrap data-toggle 顺序导致需点两次
-function onFilterToggleND1() {
-    var element = $(this);
-    element.toggleClass("active");
-    var keywordOnClick = element.attr("name");
-    if (element.hasClass("active")) {
-        element.children(".true").show();
-        if ($.inArray(keywordOnClick, parameter.User) < 0) parameter.User.push(keywordOnClick);
-    } else {
-        element.children(".true").hide();
-        var idx = $.inArray(keywordOnClick, parameter.User);
-        if (idx >= 0) parameter.User.splice(idx, 1);
-    }
-    updateDisplayedContent();
-}
-
-function onFilterToggleND2() {
-    var element = $(this);
-    element.toggleClass("active");
-    var keywordOnClick = element.attr("name");
-    if (element.hasClass("active")) {
-        element.children(".true").show();
-        if ($.inArray(keywordOnClick, parameter.Topic) < 0) parameter.Topic.push(keywordOnClick);
-    } else {
-        element.children(".true").hide();
-        var idx = $.inArray(keywordOnClick, parameter.Topic);
-        if (idx >= 0) parameter.Topic.splice(idx, 1);
-    }
-    updateDisplayedContent();
-}
-
-function onFilterToggleND3() {
-    var element = $(this);
-    element.toggleClass("active");
-    var keywordOnClick = element.attr("name");
-    if (element.hasClass("active")) {
-        element.children(".true").show();
-        if ($.inArray(keywordOnClick, parameter.Presentation) < 0) parameter.Presentation.push(keywordOnClick);
-    } else {
-        element.children(".true").hide();
-        var idx = $.inArray(keywordOnClick, parameter.Presentation);
-        if (idx >= 0) parameter.Presentation.splice(idx, 1);
-    }
-    updateDisplayedContent();
-}
-
-function onFilterToggleND4() {
-    var element = $(this);
-    element.toggleClass("active");
-    var keywordOnClick = element.attr("name");
-    if (element.hasClass("active")) {
-        element.children(".true").show();
-        if ($.inArray(keywordOnClick, parameter.Goal) < 0) parameter.Goal.push(keywordOnClick);
-    } else {
-        element.children(".true").hide();
-        var idx = $.inArray(keywordOnClick, parameter.Goal);
-        if (idx >= 0) parameter.Goal.splice(idx, 1);
-    }
-    updateDisplayedContent();
-}
-
-function onFilterToggleND5() {
-    var element = $(this);
-    element.toggleClass("active");
-    var keywordOnClick = element.attr("name");
-    if (element.hasClass("active")) {
-        element.children(".true").show();
-        if ($.inArray(keywordOnClick, parameter.dataOrigin) < 0) parameter.dataOrigin.push(keywordOnClick);
-    } else {
-        element.children(".true").hide();
-        var idx = $.inArray(keywordOnClick, parameter.dataOrigin);
-        if (idx >= 0) parameter.dataOrigin.splice(idx, 1);
-    }
-    updateDisplayedContent();
-}
-
-function onFilterToggleND6() {
-    var element = $(this);
-    element.toggleClass("active");
-    var keywordOnClick = element.attr("name");
-    if (element.hasClass("active")) {
-        element.children(".true").show();
-        if ($.inArray(keywordOnClick, parameter.SituatednessScale) < 0) parameter.SituatednessScale.push(keywordOnClick);
-    } else {
-        element.children(".true").hide();
-        var idx = $.inArray(keywordOnClick, parameter.SituatednessScale);
-        if (idx >= 0) parameter.SituatednessScale.splice(idx, 1);
-    }
-    updateDisplayedContent();
-}
-
-function onFilterToggleND7() {
-    var element = $(this);
-    element.toggleClass("active");
-    var keywordOnClick = element.attr("name");
-    if (element.hasClass("active")) {
-        element.children(".true").show();
-        if ($.inArray(keywordOnClick, parameter.representationForm) < 0) parameter.representationForm.push(keywordOnClick);
-    } else {
-        element.children(".true").hide();
-        var idx = $.inArray(keywordOnClick, parameter.representationForm);
-        if (idx >= 0) parameter.representationForm.splice(idx, 1);
-    }
-    updateDisplayedContent();
-}
-
-function onFilterToggleND8() {
-    var element = $(this);
-    element.toggleClass("active");
-    var keywordOnClick = element.attr("name");
-    if (element.hasClass("active")) {
-        element.children(".true").show();
-        if ($.inArray(keywordOnClick, parameter.SituatednessSemantics) < 0) parameter.SituatednessSemantics.push(keywordOnClick);
-    } else {
-        element.children(".true").hide();
-        var idx = $.inArray(keywordOnClick, parameter.SituatednessSemantics);
-        if (idx >= 0) parameter.SituatednessSemantics.splice(idx, 1);
-    }
-    updateDisplayedContent();
-}
-
-
-function onFilterToggleNI() {
-    var element = $(this);
-    element.toggleClass("active");
-    var collapseContainer = element.parents(".panel-collapse").prev();
-    var keywordOnClick = element.attr("Name").toLowerCase();
-    var keywordContainer = collapseContainer.attr("id").toLowerCase();
-    if (element.hasClass("active")) {
-        if ($.inArray(keywordOnClick, parameter.intent[keywordContainer]) < 0)
-            parameter.intent[keywordContainer].push(keywordOnClick);
-    } else {
-        var idx = $.inArray(keywordOnClick, parameter.intent[keywordContainer]);
-        if (idx >= 0) parameter.intent[keywordContainer].splice(idx, 1);
-    }
-    updateDisplayedContent();
-}
-
-function onFilterResetToggleNI() {
-    var element = $(this); 
-    var elementChildren = $(this).find(".idvx-collapsed-container")[0].children; 
-    var keywordOnClick = element.prev().attr("id");
-    element.prev().children(".true").toggle();
-    // clean the array
-    parameter.removeAll(keywordOnClick);
-    if (!$(this).hasClass("in")){
-        // append all icons into the array
-        for(var i = 0; i < elementChildren.length; i++) {
-            parameter.appendToIntent($(elementChildren[i]).attr("Name").toLowerCase(), keywordOnClick);
-            if(!$(elementChildren[i]).hasClass("active")){
-                $(elementChildren[i]).addClass("active");
-            }
-        }
-    } else {
-        // check if all icons are lit up
-        $.each(elementChildren, function(i, d) {
-            if(!$(d).hasClass("active"))
-                $(d).addClass("active");
-        });
-    } 
-    updateDisplayedContent();
-}
-
-
 // 
 function onVideoClick(){
     var id = $(this).attr("data-id");
     if (!itemsShortMap[id])
         return ;
-    $(this).tooltip("hide");
     $(this).addClass("active");
     displayModalDetails(id);
 }
@@ -592,32 +569,71 @@ function onModalHidden(){
     $(".idvx-singleContainer.active").removeClass("active");
 }
 
+function setModalField(selector, label, value) {
+    var field = $(selector);
+    field.empty();
+    field.append($("<b>").text(label));
+    field.append(document.createTextNode(": "));
+    field.append($("<span>").css("color", "#b341a0").text(formatArr(value)));
+}
+
+function setDescriptionField(item) {
+    var field = $("#idvx-Description");
+    field.empty();
+    field.append($("<b>").text("Description"));
+    field.append(document.createTextNode(": "));
+
+    if (Array.isArray(item.Description)) {
+        for (var i = 0; i < item.Description.length; i++) {
+            if (i > 0) field.append($("<br>"));
+            field.append($("<span class=\"description\">").text(item.Description[i]));
+        }
+        return;
+    }
+
+    field.append($("<span class=\"description\">").text(item.Description || "—"));
+}
+
+function setSourceLink(url) {
+    var field = $("#idvx-Sourcelink");
+    field.empty();
+    field.append($("<b>").text("Source Link"));
+    field.append(document.createTextNode(": "));
+
+    if (!url) {
+        field.append(document.createTextNode("—"));
+        return;
+    }
+
+    field.append($("<a>")
+        .attr({
+            "href": url,
+            "target": "_blank",
+            "rel": "noopener noreferrer"
+        })
+        .text(url));
+}
+
 
 function displayModalDetails(id){
-    var result = $.map(itemsMap, function(item, index){
-        if(item.id.toString() === id) return item 
-    });
-    if(result.length === 0) return;
-    var item = result[0];
-    $("#myModal.modalContent").empty();
-    $("#idvx-modalImage").html("<img class=\"idvx-modalPng\" src=\"thumbnail/" + id + ".png\" >");
-    $("#idvx-title").html(item.Title);
-    $("#idvx-User").html("<b>Design Audience</b>:&nbsp;&nbsp;<span style='color: #b341a0;'>" + item.User + "</span>");
-    $("#idvx-Topic").html("<b>Data topic</b>:&nbsp;&nbsp;<span style='color: #b341a0;'>" +item.Topic+ "</span>");
-    $("#idvx-Presentation").html("<b>Presentation</b>:&nbsp;&nbsp;<span style='color: #b341a0;'>"+item.Presentation+ "</span>");
-    $("#idvx-Goal").html("<b>Design Goal</b>:&nbsp;&nbsp;<span style='color: #b341a0;'>" +item.Goal+ "</span>");
-    $("#idvx-dataOrigin").html("<b>Data Origin</b>:&nbsp;&nbsp;<span style='color: #b341a0;'>" +item.dataOrigin+ "</span>");
-    $("#idvx-SituatednessScale").html("<b>Situatedness Scale</b>:&nbsp;&nbsp;<span style='color: #b341a0;'>" +item.SituatednessScale+ "</span>");
-	$("#idvx-SituatednessSemantics").html("<b>Situatedness Semantics</b>:&nbsp;&nbsp;<span style='color: #b341a0;'>" +item.SituatednessSemantics+ "</span>");
-    $("#idvx-representationForm").html("<b>Representation Form</b>:&nbsp;&nbsp;<span style='color: #b341a0;'>" +item.representationForm+ "</span>");
-    if (typeof item.Description == "string"){
-        $("#idvx-Description").html("<b>Description:</b>&nbsp;&nbsp;" + '<span class="description">'+ item.Description +'</span>');
-    } else{
-        var DescriptionHTML = "<i><b>Description:</b></i>&nbsp;&nbsp;";
-        item.Description.forEach(element => {DescriptionHTML += '<span class="description">'+element+'</span>'});
-        $("#idvx-Description").html(DescriptionHTML);
-    } 
-    $("#idvx-Sourcelink").html("<b>Source Link </b>:&nbsp;<a href=\"" + item.Sourcelink + "\" target=\"_blank\">" + item.Sourcelink +'\n' + "</a>");
-    console.log("single Modal loaded.ID:" + item.id);
+    var item = itemsById[id];
+    if(!item) return;
+    $("#idvx-modalImage")
+        .empty()
+        .append($("<img class=\"idvx-modalPng\">").attr({
+            "src": "thumbnail/" + id + ".png",
+            "alt": (item.Title || "Case") + " preview"
+        }));
+    $("#idvx-title").text(item.Title || "Untitled");
+    setModalField("#idvx-User", "Design Audience", item.User);
+    setModalField("#idvx-Topic", "Data Topic", item.Topic);
+    setModalField("#idvx-Presentation", "Presentation", item.Presentation);
+    setModalField("#idvx-Goal", "Design Goal", item.Goal);
+    setModalField("#idvx-dataOrigin", "Data Origin", item.dataOrigin);
+    setModalField("#idvx-SituatednessScale", "Situatedness Scale", item.SituatednessScale);
+	setModalField("#idvx-SituatednessSemantics", "Situatedness Semantics", item.SituatednessSemantics);
+    setModalField("#idvx-representationForm", "Representation Form", item.representationForm);
+    setDescriptionField(item);
+    setSourceLink(item.Sourcelink);
     $("#myModal").modal("show");
 }

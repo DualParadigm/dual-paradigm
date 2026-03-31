@@ -16,6 +16,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="">
 	<meta name="author" content="">
+	<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
 	<title>Situated Visualization Design Space</title>
 
 	<link href="css/bootstrap.min.css" rel="stylesheet">
@@ -59,7 +60,7 @@
 		<aside class="situvis-sidebar">
 			<!-- 搜索 -->
 			<div class="situvis-filter-block">
-				<label class="situvis-filter-label">Search</label>
+				<label for="input-searchBar" class="situvis-filter-label">Search</label>
 				<div class="situvis-search-wrap">
 					<span id="magnify" class="situvis-search-icon"></span>
 					<input type="text" id="input-searchBar" class="situvis-search-input" placeholder="Search title">
@@ -81,16 +82,15 @@
 			<div id="bottom-filterPanel" class="panel panel-default idvx-panel">
 				<div id="idvx-task" class="panel-body idvx-panel-contentPadding situvis-filter-scroll">
 					<!-- Goal -->
-					<div id="idvx-object" class="idvx-panel-bottom">
+					<section class="idvx-panel-bottom situvis-filter-section">
 						<div class="panel-heading idvx-panel-heading">
 							<strong>Design Goal</strong>
 						</div>
-						<div class="panel-group" id="idvx-task-collapseGroup" role="tablist" aria-multiselectable="true">
+						<div class="panel-group situvis-filter-group">
 							<div class="panel panel-default idvx-task-panelSingle">
 		
 		
-								<div id="collapseFour" class="panel-collapse collapse in" role="tabpanel"
-									aria-labelledby="headingOne">
+								<div class="panel-collapse collapse in">
 									<div class="panel-body idvx-Goal-panelBody">
 										<div class="idvx-collapsed-container">
 		
@@ -124,24 +124,22 @@
 												autocomplete="off" data-toggle="tooltip" title="analysis">
 												<input type="checkbox" autocomplete="off">
 											</button>
-											<!-- </button>															 -->
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>
+					</section>
 		
 					<!-- User -->
-					<div id="idvx-object" class="idvx-panel-bottom">
+					<section class="idvx-panel-bottom situvis-filter-section">
 						<div class="panel-heading idvx-panel-heading">
 							<strong>Design Audience</strong>
 						</div>
-						<div class="panel-group" id="idvx-task-collapseGroup" role="tablist" aria-multiselectable="true">
+						<div class="panel-group situvis-filter-group">
 							<div class="panel panel-default idvx-task-panelSingle">
 		
-								<div id="collapseFour" class="panel-collapse collapse in" role="tabpanel"
-									aria-labelledby="headingOne">
+								<div class="panel-collapse collapse in">
 									<div class="panel-body idvx-User-panelBody">
 										<div class="idvx-collapsed-container">
 											<button id="four-one" type="button" name="Individual"
@@ -159,22 +157,20 @@
 												autocomplete="off" data-toggle="tooltip" title="Public">
 												<input type="checkbox" autocomplete="off">
 											</button>
-											</button>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>
+					</section>
 					<!-- Presentation -->
 					<div class="panel-heading idvx-panel-heading">
 						<strong>Presentation</strong>
 					</div>
-					<div class="panel-group" id="idvx-task-collapseGroup" role="tablist" aria-multiselectable="true">
+					<div class="panel-group situvis-filter-group">
 						<div class="panel panel-default idvx-task-panelSingle">
 		
-							<div id="collapseFour" class="panel-collapse collapse in" role="tabpanel"
-								aria-labelledby="headingOne">
+							<div class="panel-collapse collapse in">
 								<div class="panel-body idvx-Presentation-panelBody">
 									<div class="idvx-collapsed-container">
 		
@@ -205,15 +201,14 @@
 						</div>
 					</div>
 					<!-- Representation Form -->
-					<div id="idvx-object" class="idvx-panel-bottom">
+					<section class="idvx-panel-bottom situvis-filter-section">
 						<div class="panel-heading idvx-panel-heading">
 							<strong>Representation Form</strong>
 						</div>
-						<div class="panel-group" id="idvx-task-collapseGroup" role="tablist" aria-multiselectable="true">
+						<div class="panel-group situvis-filter-group">
 							<div class="panel panel-default idvx-task-panelSingle">
 		
-								<div id="collapseFour" class="panel-collapse collapse in" role="tabpanel"
-									aria-labelledby="headingOne">
+								<div class="panel-collapse collapse in">
 									<div class="panel-body idvx-representationForm-panelBody">
 										<div class="idvx-collapsed-container">
 		
@@ -237,100 +232,88 @@
 												autocomplete="off" data-toggle="tooltip" title="other (taste, smell)">
 												<input type="checkbox" autocomplete="off">
 											</button>
-											<!-- </button>															 -->
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>
+					</section>
 		
 					<!-- Situatedness Scale -->
-					<div id="idvx-object" class="idvx-panel-bottom">
+					<section class="idvx-panel-bottom situvis-filter-section">
 						<div class="panel-heading idvx-panel-heading">
 							<strong>Situatedness-Scale</strong>
 						</div>
-						<div class="panel-group" id="idvx-task-collapseGroup" role="tablist" aria-multiselectable="true">
+						<div class="panel-group situvis-filter-group">
 							<div class="panel panel-default idvx-task-panelSingle">
-								<div id="collapseFour" class="panel-collapse collapse in" role="tabpanel"
-									aria-labelledby="headingOne">
+								<div class="panel-collapse collapse in">
 									<div class="panel-body idvx-SituatednessScale-panelBody">
 										<div class="idvx-collapsed-container">
 		
-											<button id="situ-scale-one" type="small" name="small"
+											<button id="situ-scale-one" type="button" name="small"
 												class="btn btn-primary idvx-collapsed-entry" aria-pressed="false"
 												autocomplete="off" data-toggle="tooltip" title="small">
 												<input type="checkbox" autocomplete="off">
 											</button>
-											<button id="situ-scale-two" type="medium" name="medium"
+											<button id="situ-scale-two" type="button" name="medium"
 												class="btn btn-primary idvx-collapsed-entry" aria-pressed="false"
 												autocomplete="off" data-toggle="tooltip" title="medium">
 												<input type="checkbox" autocomplete="off">
 											</button>
-											<button id="situ-scale-3" type="large" name="large"
+											<button id="situ-scale-3" type="button" name="large"
 												class="btn btn-primary idvx-collapsed-entry" aria-pressed="false"
 												autocomplete="off" data-toggle="tooltip" title="large">
 												<input type="checkbox" autocomplete="off">
 											</button>
-											<!-- <button id="situ-4" type="button" name="environment proxy" class="btn btn-primary idvx-collapsed-entry" aria-pressed="false" autocomplete="off" data-toggle="tooltip" title="environment proxy">
-																<input type="checkbox" autocomplete="off">
-															</button> -->
-											<!-- </button>															 -->
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>
+					</section>
 		
 					<!-- Situatedness Semantics -->
-					<div id="idvx-object" class="idvx-panel-bottom">
+					<section class="idvx-panel-bottom situvis-filter-section">
 						<div class="panel-heading idvx-panel-heading">
 							<strong>Situatedness-Semantics</strong>
 						</div>
-						<div class="panel-group" id="idvx-task-collapseGroup" role="tablist" aria-multiselectable="true">
+						<div class="panel-group situvis-filter-group">
 							<div class="panel panel-default idvx-task-panelSingle">
-								<div id="collapseFour" class="panel-collapse collapse in" role="tabpanel"
-									aria-labelledby="headingOne">
+								<div class="panel-collapse collapse in">
 									<div class="panel-body idvx-SituatednessSemantics-panelBody">
 										<div class="idvx-collapsed-container">
 		
-											<button id="situ-sem-one" type="Indexical" name="Indexical"
+											<button id="situ-sem-one" type="button" name="Indexical"
 												class="btn btn-primary idvx-collapsed-entry" aria-pressed="false"
 												autocomplete="off" data-toggle="tooltip" title="Indexical">
 												<input type="checkbox" autocomplete="off">
 											</button>
-											<button id="situ-sem-two" type="Symbolic" name="Symbolic"
+											<button id="situ-sem-two" type="button" name="Symbolic"
 												class="btn btn-primary idvx-collapsed-entry" aria-pressed="false"
 												autocomplete="off" data-toggle="tooltip" title="Symbolic">
 												<input type="checkbox" autocomplete="off">
 											</button>
-											<button id="situ-sem-three" type="Iconic" name="Iconic"
+											<button id="situ-sem-three" type="button" name="Iconic"
 												class="btn btn-primary idvx-collapsed-entry" aria-pressed="false"
 												autocomplete="off" data-toggle="tooltip" title="Iconic">
 												<input type="checkbox" autocomplete="off">
 											</button>
 		
-											<!-- <button id="situ-4" type="button" name="environment proxy" class="btn btn-primary idvx-collapsed-entry" aria-pressed="false" autocomplete="off" data-toggle="tooltip" title="environment proxy">
-																<input type="checkbox" autocomplete="off">
-															</button> -->
-											<!-- </button>															 -->
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>
+					</section>
 					<!-- Data Origin -->
-					<div id="idvx-object" class="idvx-panel-bottom">
+					<section class="idvx-panel-bottom situvis-filter-section">
 						<div class="panel-heading idvx-panel-heading">
 							<strong>Data Origin</strong>
 						</div>
-						<div class="panel-group" id="idvx-task-collapseGroup" role="tablist" aria-multiselectable="true">
+						<div class="panel-group situvis-filter-group">
 							<div class="panel panel-default idvx-task-panelSingle">
 		
-								<div id="collapseFour" class="panel-collapse collapse in" role="tabpanel"
-									aria-labelledby="headingOne">
+								<div class="panel-collapse collapse in">
 									<div class="panel-body idvx-dataOrigin-panelBody">
 										<div class="idvx-collapsed-container">
 		
@@ -354,23 +337,21 @@
 												autocomplete="off" data-toggle="tooltip" title="Unspecified">
 												<input type="checkbox" autocomplete="off">
 											</button>
-											<!-- </button>															 -->
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>
+					</section>
 					<!-- Topic -->
-					<div id="idvx-object" class="idvx-panel-bottom">
+					<section class="idvx-panel-bottom situvis-filter-section">
 						<div class="panel-heading idvx-panel-heading">
 							<strong>Data Topic</strong>
 						</div>
-						<div class="panel-group" id="idvx-task-collapseGroup" role="tablist" aria-multiselectable="true">
+						<div class="panel-group situvis-filter-group">
 							<div class="panel panel-default idvx-task-panelSingle">
 		
-								<div id="collapseFour" class="panel-collapse collapse in" role="tabpanel"
-									aria-labelledby="headingOne">
+								<div class="panel-collapse collapse in">
 									<div class="panel-body idvx-Topic-panelBody">
 										<div class="idvx-collapsed-container">
 											<button id="two-one" type="button" name="Society&History(include media)"
@@ -411,13 +392,12 @@
 												autocomplete="off" data-toggle="tooltip" title="Unspecified&Mixed Topics">
 												<input type="checkbox" autocomplete="off">
 											</button>
-											<!-- </button>															 -->
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>
+					</section>
 				</div>
 			</div>
 		</aside>
@@ -439,43 +419,42 @@
 		</div>
 	</div>
 
-	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content" style="width:800px;">
-					<div class="modal-body clearfix" style="padding: 30px;">
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="idvx-title" aria-modal="true">
+			<div class="modal-dialog modal-lg situvis-modal-dialog" role="document">
+				<div class="modal-content situvis-modal-content">
+					<div class="modal-body clearfix situvis-modal-body">
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
 								aria-hidden="true">&times;</span></button>
-						<div id="idvx-modalTxt">
-							<h6><strong id="idvx-title" class="title" style="color:#636363; font-size: large;"></strong>
-							</h6>
-							<div>
+						<div id="idvx-modalTxt" class="situvis-modal-layout">
+							<div class="situvis-modal-text">
+								<h6><strong id="idvx-title" class="title" style="color:#636363; font-size: large;"></strong>
+								</h6>
+								<div>
 
-								<p id="idvx-User" class="modalContent"
-									style="color:#636363;font-size: smaller; font-family: PingFangSC;" </p>
-								<p id="idvx-Topic" class="strategy"
-									style="color:#636363;font-size: smaller; font-family: PingFangSC;"></p>
-								<p id="idvx-Presentation" class="transformation"
-									style="color:#636363;font-size: smaller; font-family: PingFangSC;"></p>
-								<p id="idvx-Goal" class="bindingType"
-									style="color:#636363;font-size: smaller; font-family: PingFangSC;"></p>
-								<p id="idvx-dataOrigin" class="presentationForm"
-									style="color:#636363;font-size: smaller; font-family: PingFangSC;"></p>
-								<p id="idvx-SituatednessScale" class="layout"
-									style="color:#636363;font-size: smaller; font-family: PingFangSC;"></p>
-								<p id="idvx-SituatednessSemantics" class="layout"
-									style="color:#636363;font-size: smaller; font-family: PingFangSC;"></p>
-								<p id="idvx-representationForm" class="topic"
-									style="color:#636363;font-size: 14px;font-family: PingFangSC"></p>
-								<p id="idvx-Description" class="description"
-									style="color:#636363;font-size: smaller;font-family: PingFangSC"></p>
-								<!-- <p id="idvx-description" class="modalContent" style="color:#636363;font-size: smaller; font-family: PingFangSC;"</p> -->
-								<p id="idvx-Sourcelink" class="sourcelink"
-									style="color:#636363;font-size: smaller;font-family: PingFangSC"></p>
-								<p id="idvx-modalURL" class="modalURL"></p>
+									<p id="idvx-User" class="modalContent"
+										style="color:#636363;font-size: smaller; font-family: PingFangSC;"></p>
+									<p id="idvx-Topic" class="strategy"
+										style="color:#636363;font-size: smaller; font-family: PingFangSC;"></p>
+									<p id="idvx-Presentation" class="transformation"
+										style="color:#636363;font-size: smaller; font-family: PingFangSC;"></p>
+									<p id="idvx-Goal" class="bindingType"
+										style="color:#636363;font-size: smaller; font-family: PingFangSC;"></p>
+									<p id="idvx-dataOrigin" class="presentationForm"
+										style="color:#636363;font-size: smaller; font-family: PingFangSC;"></p>
+									<p id="idvx-SituatednessScale" class="layout"
+										style="color:#636363;font-size: smaller; font-family: PingFangSC;"></p>
+									<p id="idvx-SituatednessSemantics" class="layout"
+										style="color:#636363;font-size: smaller; font-family: PingFangSC;"></p>
+									<p id="idvx-representationForm" class="topic"
+										style="color:#636363;font-size: 14px;font-family: PingFangSC"></p>
+									<p id="idvx-Description" class="description"
+										style="color:#636363;font-size: smaller;font-family: PingFangSC"></p>
+									<p id="idvx-Sourcelink" class="sourcelink"
+										style="color:#636363;font-size: smaller;font-family: PingFangSC"></p>
+									<p id="idvx-modalURL" class="modalURL"></p>
+								</div>
 							</div>
-							<div id="idvx-modalImage"
-								style="max-width: 630px; max-height: 700px;padding-top:10px;display: inline-block;float:left; margin-left:40px;"
-								class="modalContent">
+							<div id="idvx-modalImage" class="modalContent situvis-modal-image">
 							</div>
 						</div>
 					</div>

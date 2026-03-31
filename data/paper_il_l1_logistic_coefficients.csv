@@ -1,0 +1,85 @@
+﻿outcome,feature,coefficient,odds_ratio,direction
+I_design,cat__venue_cat_VIS,-0.496,0.609,negative
+I_design,cat__paper_type_technique+algorithm,-0.2481,0.7803,negative
+I_design,bin__User (who)__Individual__union,-0.1957,0.8222,negative
+I_design,bin__User (who)__Group__union,0.0006,1.0006,positive
+I_design,bin__Presentation (how)__Artifact__union,0.2344,1.2641,positive
+I_design,bin__Presentation (how)__comprehension__union,-0.409,0.6643,negative
+I_design,bin__Goal (why)__engagement__union,0.3612,1.4351,positive
+I_design,bin__Goal (why)__analysis__union,0.7942,2.2127,positive
+I_design,"bin__data origin (when) historical, live, predictive, synthesized__Environmental data__union",0.0197,1.0199,positive
+I_design,"bin__data origin (when) historical, live, predictive, synthesized__Participant-generated__union",0.0643,1.0664,positive
+I_design,bin__representation form (how)__haptic__union,0.826,2.2841,positive
+I_design,bin__Scale__medium__union,0.8537,2.3482,positive
+I_design,bin__Scale__large__union,-0.1402,0.8692,negative
+I_design,bin__Semantics__Symbolic__union,0.0814,1.0848,positive
+I_design,bin__Semantics__Iconic__union,-0.533,0.5868,negative
+J_presentation,num__year,-5.0143,0.0066,negative
+J_presentation,cat__venue_cat_HCI,-3.2757,0.0378,negative
+J_presentation,cat__venue_cat_Sociology,-21.6884,0.0,negative
+J_presentation,cat__venue_cat_VIS,1.5092,4.523,positive
+J_presentation,cat__venue_cat_other,16.2209,11083079.5346,positive
+J_presentation,cat__paper_type_technique+algorithm,-8.2032,0.0003,negative
+J_presentation,cat__paper_type_theory,-7.8223,0.0004,negative
+J_presentation,bin__User (who)__Individual__union,-5.7288,0.0033,negative
+J_presentation,bin__User (who)__Group__union,5.055,156.8034,positive
+J_presentation,bin__User (who)__Public__union,-12.9206,0.0,negative
+J_presentation,"bin__Topic (what)__Entertainment, Sports
+&Culture__union",16.953,23046706.013,positive
+J_presentation,"bin__Topic (what)__Environment 
+(Surroudings/Nature), 
+Geography&Ecology__union",-7.1066,0.0008,negative
+J_presentation,"bin__Topic (what)__Health, Life 
+& Emotion__union",4.1759,65.0981,positive
+J_presentation,bin__Topic (what)__Science__union,-4.4095,0.0122,negative
+J_presentation,"bin__Topic (what)__Society&History
+(include media)__union",29.3297,5466930173655.342,positive
+J_presentation,"bin__Topic (what)__Industry, Architecture&Engineering__union",-17.0766,0.0,negative
+J_presentation,bin__Topic (what)__Unspecified&Mixed Topics__union,-18.4317,0.0,negative
+J_presentation,bin__Presentation (how)__XR__union,9.0556,8566.282,positive
+J_presentation,bin__Presentation (how)__Event__union,16.1092,9911048.5262,positive
+J_presentation,bin__Presentation (how)__Artifact__union,-7.4991,0.0006,negative
+J_presentation,bin__Presentation (how)__Installation__union,15.091,3580274.9311,positive
+J_presentation,bin__Presentation (how)__comprehension__union,-2.9741,0.0511,negative
+J_presentation,bin__Goal (why)__communication__union,1.2748,3.5778,positive
+J_presentation,bin__Goal (why)__archive__union,6.5595,705.909,positive
+J_presentation,bin__Goal (why)__engagement__union,15.4096,4923600.6474,positive
+J_presentation,bin__Goal (why)__reflection__union,14.0532,1268270.3839,positive
+J_presentation,bin__Goal (why)__analysis__union,2.7504,15.6491,positive
+J_presentation,"bin__data origin (when) historical, live, predictive, synthesized__Environmental data__union",-1.6825,0.1859,negative
+J_presentation,"bin__data origin (when) historical, live, predictive, synthesized__Participant-generated__union",-11.7212,0.0,negative
+J_presentation,"bin__data origin (when) historical, live, predictive, synthesized__Collected&Uploaded__union",12.5345,277764.2091,positive
+J_presentation,"bin__data origin (when) historical, live, predictive, synthesized__Unspecified__union",-0.7132,0.4901,negative
+J_presentation,bin__representation form (how)__visual__union,-13.174,0.0,negative
+J_presentation,bin__representation form (how)__haptic__union,0.107,1.113,positive
+J_presentation,bin__representation form (how)__sound__union,-26.767,0.0,negative
+J_presentation,"bin__representation form (how)__other (taste, smell，action)__union",2.5589,12.9218,positive
+J_presentation,bin__Scale__small__union,2.7616,15.8247,positive
+J_presentation,bin__Scale__medium__union,4.4245,83.471,positive
+J_presentation,bin__Scale__large__union,-0.3786,0.6848,negative
+J_presentation,bin__Semantics__Symbolic__union,1.0869,2.9651,positive
+J_presentation,bin__Semantics__Iconic__union,0.3913,1.4788,positive
+J_presentation,bin__Semantics__Indexical__union,6.0907,441.7274,positive
+K_representation,num__year,0.1034,1.109,positive
+K_representation,cat__venue_cat_VIS,0.0752,1.0781,positive
+K_representation,"bin__Topic (what)__Society&History
+(include media)__union",-0.0162,0.9839,negative
+K_representation,bin__Presentation (how)__Artifact__union,0.124,1.132,positive
+K_representation,bin__Goal (why)__engagement__union,-1.0046,0.3662,negative
+K_representation,bin__Goal (why)__reflection__union,1.3008,3.6722,positive
+K_representation,bin__Goal (why)__analysis__union,-0.1644,0.8484,negative
+K_representation,bin__Scale__medium__union,-0.4552,0.6343,negative
+K_representation,bin__Semantics__Symbolic__union,-0.2724,0.7616,negative
+K_representation,bin__Semantics__Indexical__union,0.1749,1.1911,positive
+L_data,num__year,0.3805,1.463,positive
+L_data,cat__venue_cat_VIS,0.8846,2.4219,positive
+L_data,cat__paper_type_technique+algorithm,0.2278,1.2559,positive
+L_data,cat__paper_type_theory,-0.0068,0.9932,negative
+L_data,bin__User (who)__Individual__union,-0.618,0.539,negative
+L_data,"bin__Topic (what)__Industry, Architecture&Engineering__union",-0.0122,0.9879,negative
+L_data,bin__Goal (why)__reflection__union,2.4172,11.2144,positive
+L_data,bin__Goal (why)__analysis__union,-0.0665,0.9357,negative
+L_data,bin__representation form (how)__haptic__union,-0.1282,0.8797,negative
+L_data,bin__Scale__small__union,-0.9803,0.3752,negative
+L_data,bin__Scale__large__union,0.0688,1.0713,positive
+L_data,bin__Semantics__Iconic__union,-0.2941,0.7452,negative

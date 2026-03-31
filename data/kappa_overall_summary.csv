@@ -1,0 +1,2 @@
+﻿n_cases,n_labels,n_binary_decisions,mean_feature_kappa,pooled_observed_agreement,pooled_expected_agreement,pooled_kappa,pooled_interpretation
+268,34,9112,0.8686,0.9523,0.5652,0.8902,almost perfect

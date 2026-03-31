@@ -1,0 +1,157 @@
+﻿outcome,overall_feature,n,feature_positive_n,outcome_positive_n,both_positive_n,odds_ratio,fisher_p,phi
+I_design,User (who)__Individual,153,110,91,57,0.2847,0.0019,0.2495
+I_design,User (who)__Group,153,45,91,37,4.6250,0.0003,0.2991
+I_design,User (who)__Public,153,27,91,20,2.2133,0.1296,0.1376
+I_design,"Topic (what)__Entertainment, Sports
+&Culture",153,25,91,9,0.3155,0.0134,0.2113
+I_design,"Topic (what)__Environment 
+(Surroudings/Nature), 
+Geography&Ecology",153,35,91,23,1.4093,0.4377,0.0692
+I_design,"Topic (what)__Health, Life 
+& Emotion",153,34,91,28,4.1481,0.0026,0.2491
+I_design,Topic (what)__Science,153,11,91,5,0.5426,0.3542,0.0795
+I_design,"Topic (what)__Society&History
+(include media)",153,27,91,11,0.3953,0.0329,0.1767
+I_design,"Topic (what)__Industry, Architecture&Engineering",153,20,91,15,2.2500,0.1495,0.1226
+I_design,Topic (what)__Unspecified&Mixed Topics,153,14,91,11,2.7042,0.1595,0.1234
+I_design,Presentation (how)__XR,153,92,91,42,0.2057,0.0000,0.3458
+I_design,Presentation (how)__Event,153,8,91,7,5.0833,0.1434,0.1341
+I_design,Presentation (how)__Artifact,153,45,91,38,5.6334,0.0001,0.3283
+I_design,Presentation (how)__Installation,153,26,91,19,2.0734,0.1320,0.1253
+I_design,Presentation (how)__comprehension,153,72,91,28,0.1818,0.0000,0.3954
+I_design,Goal (why)__communication,153,106,91,54,0.2807,0.0013,0.2610
+I_design,Goal (why)__archive,153,21,91,17,3.3311,0.0333,0.1745
+I_design,Goal (why)__engagement,153,48,91,39,4.4167,0.0002,0.2999
+I_design,Goal (why)__reflection,153,94,91,47,0.3409,0.0038,0.2437
+I_design,Goal (why)__analysis,153,51,91,41,4.2640,0.0002,0.3012
+I_design,"data origin (when) historical, live, predictive, synthesized__Environmental data",153,31,91,23,2.2831,0.0682,0.1511
+I_design,"data origin (when) historical, live, predictive, synthesized__Participant-generated",153,37,91,32,6.1831,0.0001,0.3107
+I_design,"data origin (when) historical, live, predictive, synthesized__Collected&Uploaded",153,97,91,46,0.2205,0.0001,0.3232
+I_design,"data origin (when) historical, live, predictive, synthesized__Unspecified",153,1,91,1,,1.0000,0.0670
+I_design,representation form (how)__visual,153,146,91,86,0.5733,0.7016,0.0533
+I_design,representation form (how)__haptic,153,38,91,34,8.6491,0.0000,0.3512
+I_design,representation form (how)__sound,153,8,91,7,5.0833,0.1434,0.1341
+I_design,"representation form (how)__other (taste, smell，action)",153,5,91,4,2.8046,0.6488,0.0768
+I_design,Scale__small,153,30,91,23,2.6576,0.0385,0.1729
+I_design,Scale__medium,153,63,91,52,6.1818,0.0000,0.3930
+I_design,Scale__large,153,93,91,41,0.1577,0.0000,0.3903
+I_design,Semantics__Symbolic,153,95,91,62,1.8788,0.0892,0.1508
+I_design,Semantics__Iconic,153,92,91,45,0.3122,0.0013,0.2643
+I_design,Semantics__Indexical,153,131,91,74,0.3818,0.0990,0.1485
+J_presentation,User (who)__Individual,153,110,130,93,0.8871,1.0000,0.0189
+J_presentation,User (who)__Group,153,45,130,35,0.4789,0.1364,0.1299
+J_presentation,User (who)__Public,153,27,130,24,1.5094,0.7675,0.0508
+J_presentation,"Topic (what)__Entertainment, Sports
+&Culture",153,25,130,23,2.2570,0.3714,0.0870
+J_presentation,"Topic (what)__Environment 
+(Surroudings/Nature), 
+Geography&Ecology",153,35,130,28,0.6275,0.4189,0.0757
+J_presentation,"Topic (what)__Health, Life 
+& Emotion",153,34,130,29,1.0337,1.0000,0.0049
+J_presentation,Topic (what)__Science,153,11,130,8,0.4372,0.2169,0.0953
+J_presentation,"Topic (what)__Society&History
+(include media)",153,27,130,27,,0.0145,0.1947
+J_presentation,"Topic (what)__Industry, Architecture&Engineering",153,20,130,14,0.3420,0.0846,0.1624
+J_presentation,Topic (what)__Unspecified&Mixed Topics,153,14,130,10,0.3958,0.2289,0.1202
+J_presentation,Presentation (how)__XR,153,92,130,79,1.1916,0.8179,0.0310
+J_presentation,Presentation (how)__Event,153,8,130,7,1.2520,1.0000,0.0166
+J_presentation,Presentation (how)__Artifact,153,45,130,34,0.3864,0.0470,0.1700
+J_presentation,Presentation (how)__Installation,153,26,130,23,1.4330,0.7671,0.0442
+J_presentation,Presentation (how)__comprehension,153,72,130,62,1.1853,0.8219,0.0302
+J_presentation,Goal (why)__communication,153,106,130,95,2.9610,0.0255,0.1956
+J_presentation,Goal (why)__archive,153,21,130,17,0.7146,0.5248,0.0448
+J_presentation,Goal (why)__engagement,153,48,130,41,1.0530,1.0000,0.0085
+J_presentation,Goal (why)__reflection,153,94,130,87,4.6246,0.0019,0.2679
+J_presentation,Goal (why)__analysis,153,51,130,38,0.3177,0.0156,0.2069
+J_presentation,"data origin (when) historical, live, predictive, synthesized__Environmental data",153,31,130,24,0.5175,0.2574,0.1065
+J_presentation,"data origin (when) historical, live, predictive, synthesized__Participant-generated",153,37,130,29,0.5384,0.1981,0.1041
+J_presentation,"data origin (when) historical, live, predictive, synthesized__Collected&Uploaded",153,97,130,86,2.1322,0.1046,0.1360
+J_presentation,"data origin (when) historical, live, predictive, synthesized__Unspecified",153,1,130,0,0.0000,0.1503,0.1928
+J_presentation,representation form (how)__visual,153,146,130,125,2.3810,0.2834,0.0829
+J_presentation,representation form (how)__haptic,153,38,130,27,0.2860,0.0089,0.2238
+J_presentation,representation form (how)__sound,153,8,130,5,0.2667,0.1003,0.1477
+J_presentation,"representation form (how)__other (taste, smell，action)",153,5,130,3,0.2480,0.1629,0.1284
+J_presentation,Scale__small,153,30,130,24,0.6415,0.3997,0.0686
+J_presentation,Scale__medium,153,63,130,51,0.5918,0.2594,0.0940
+J_presentation,Scale__large,153,93,130,82,1.8636,0.1742,0.1116
+J_presentation,Semantics__Symbolic,153,95,130,81,1.0627,1.0000,0.0106
+J_presentation,Semantics__Iconic,153,92,130,77,0.7748,0.6502,0.0437
+J_presentation,Semantics__Indexical,153,131,130,112,1.3099,0.7465,0.0361
+K_representation,User (who)__Individual,153,110,113,84,1.5597,0.3071,0.0913
+K_representation,User (who)__Group,153,45,113,27,0.3837,0.0156,0.2035
+K_representation,User (who)__Public,153,27,113,18,0.6526,0.3448,0.0757
+K_representation,"Topic (what)__Entertainment, Sports
+&Culture",153,25,113,21,2.0543,0.3189,0.1020
+K_representation,"Topic (what)__Environment 
+(Surroudings/Nature), 
+Geography&Ecology",153,35,113,27,1.2558,0.6682,0.0407
+K_representation,"Topic (what)__Health, Life 
+& Emotion",153,34,113,24,0.8090,0.6605,0.0398
+K_representation,Topic (what)__Science,153,11,113,9,1.6442,0.7289,0.0504
+K_representation,"Topic (what)__Society&History
+(include media)",153,27,113,19,0.8085,0.6362,0.0367
+K_representation,"Topic (what)__Industry, Architecture&Engineering",153,20,113,12,0.4752,0.1709,0.1223
+K_representation,Topic (what)__Unspecified&Mixed Topics,153,14,113,9,0.6058,0.5229,0.0691
+K_representation,Presentation (how)__XR,153,92,113,67,0.8739,0.8513,0.0288
+K_representation,Presentation (how)__Event,153,8,113,7,2.5755,0.6813,0.0729
+K_representation,Presentation (how)__Artifact,153,45,113,36,1.6104,0.3161,0.0903
+K_representation,Presentation (how)__Installation,153,26,113,15,0.4035,0.0506,0.1664
+K_representation,Presentation (how)__comprehension,153,72,113,53,0.9763,1.0000,0.0053
+K_representation,Goal (why)__communication,153,106,113,83,2.0449,0.0735,0.1519
+K_representation,Goal (why)__archive,153,21,113,16,1.1546,1.0000,0.0212
+K_representation,Goal (why)__engagement,153,48,113,27,0.2841,0.0014,0.2709
+K_representation,Goal (why)__reflection,153,94,113,81,5.2572,0.0000,0.3537
+K_representation,Goal (why)__analysis,153,51,113,31,0.3780,0.0116,0.2104
+K_representation,"data origin (when) historical, live, predictive, synthesized__Environmental data",153,31,113,21,0.6848,0.3719,0.0701
+K_representation,"data origin (when) historical, live, predictive, synthesized__Participant-generated",153,37,113,24,0.5601,0.1969,0.1156
+K_representation,"data origin (when) historical, live, predictive, synthesized__Collected&Uploaded",153,97,113,73,1.2167,0.7029,0.0420
+K_representation,"data origin (when) historical, live, predictive, synthesized__Unspecified",153,1,113,0,0.0000,0.2614,0.1363
+K_representation,representation form (how)__visual,153,146,113,107,0.4573,0.6768,0.0591
+K_representation,representation form (how)__haptic,153,38,113,27,0.8277,0.6733,0.0367
+K_representation,representation form (how)__sound,153,8,113,5,0.5710,0.4314,0.0607
+K_representation,"representation form (how)__other (taste, smell，action)",153,5,113,3,0.5182,0.6062,0.0580
+K_representation,Scale__small,153,30,113,23,1.2048,0.8187,0.0316
+K_representation,Scale__medium,153,63,113,38,0.3040,0.0025,0.2578
+K_representation,Scale__large,153,93,113,72,1.5889,0.2589,0.1010
+K_representation,Semantics__Symbolic,153,95,113,68,0.7276,0.4532,0.0663
+K_representation,Semantics__Iconic,153,92,113,70,1.3319,0.4578,0.0623
+K_representation,Semantics__Indexical,153,131,113,101,2.8056,0.0357,0.1801
+L_data,User (who)__Individual,153,110,135,94,0.2866,0.1012,0.1380
+L_data,User (who)__Group,153,45,135,35,0.2800,0.0138,0.2095
+L_data,User (who)__Public,153,27,135,26,4.0550,0.2005,0.1158
+L_data,"Topic (what)__Entertainment, Sports
+&Culture",153,25,135,23,1.6429,0.7390,0.0516
+L_data,"Topic (what)__Environment 
+(Surroudings/Nature), 
+Geography&Ecology",153,35,135,30,0.7429,0.5622,0.0426
+L_data,"Topic (what)__Health, Life 
+& Emotion",153,34,135,31,1.4904,0.7646,0.0488
+L_data,Topic (what)__Science,153,11,135,9,0.5714,0.6199,0.0554
+L_data,"Topic (what)__Society&History
+(include media)",153,27,135,27,,0.0439,0.1690
+L_data,"Topic (what)__Industry, Architecture&Engineering",153,20,135,14,0.2314,0.0157,0.2195
+L_data,Topic (what)__Unspecified&Mixed Topics,153,14,135,13,1.8115,1.0000,0.0455
+L_data,Presentation (how)__XR,153,92,135,81,0.9545,1.0000,0.0073
+L_data,Presentation (how)__Event,153,8,135,8,,0.5970,0.0858
+L_data,Presentation (how)__Artifact,153,45,135,38,0.6156,0.4102,0.0759
+L_data,Presentation (how)__Installation,153,26,135,23,1.0268,1.0000,0.0032
+L_data,Presentation (how)__comprehension,153,72,135,65,1.4592,0.6163,0.0598
+L_data,Goal (why)__communication,153,106,135,99,4.3214,0.0054,0.2406
+L_data,Goal (why)__archive,153,21,135,20,2.9565,0.4700,0.0867
+L_data,Goal (why)__engagement,153,48,135,43,1.2152,0.7944,0.0283
+L_data,Goal (why)__reflection,153,94,135,92,17.1163,0.0000,0.3775
+L_data,Goal (why)__analysis,153,51,135,41,0.3489,0.0592,0.1721
+L_data,"data origin (when) historical, live, predictive, synthesized__Environmental data",153,31,135,26,0.6202,0.3670,0.0683
+L_data,"data origin (when) historical, live, predictive, synthesized__Participant-generated",153,37,135,32,0.8078,0.7705,0.0307
+L_data,"data origin (when) historical, live, predictive, synthesized__Collected&Uploaded",153,97,135,85,0.8500,1.0000,0.0248
+L_data,"data origin (when) historical, live, predictive, synthesized__Unspecified",153,1,135,0,0.0000,0.1176,0.2221
+L_data,representation form (how)__visual,153,146,135,130,3.2500,0.1923,0.1142
+L_data,representation form (how)__haptic,153,38,135,30,0.3571,0.0766,0.1657
+L_data,representation form (how)__sound,153,8,135,7,0.9297,1.0000,0.0054
+L_data,"representation form (how)__other (taste, smell，action)",153,5,135,4,0.5191,0.4699,0.0470
+L_data,Scale__small,153,30,135,24,0.4324,0.1248,0.1262
+L_data,Scale__medium,153,63,135,53,0.5171,0.2097,0.1067
+L_data,Scale__large,153,93,135,85,2.1250,0.1975,0.1222
+L_data,Semantics__Symbolic,153,95,135,86,1.7551,0.3049,0.0910
+L_data,Semantics__Iconic,153,92,135,78,0.3910,0.1279,0.1316
+L_data,Semantics__Indexical,153,131,135,115,0.7188,1.0000,0.0340

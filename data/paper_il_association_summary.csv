@@ -1,0 +1,9 @@
+﻿predictor,outcome,n,levels,chi2,p_value,cramers_v
+venue_cat,I_design,154,5,33.6455,0.0000,0.4674
+venue_cat,J_presentation,154,5,7.9685,0.0927,0.2275
+venue_cat,K_representation,154,5,12.6194,0.0133,0.2863
+venue_cat,L_data,154,5,17.1223,0.0018,0.3334
+paper_type,I_design,154,3,2.8112,0.2452,0.1351
+paper_type,J_presentation,154,3,10.1858,0.0061,0.2572
+paper_type,K_representation,154,3,2.5160,0.2842,0.1278
+paper_type,L_data,154,3,5.5838,0.0613,0.1904

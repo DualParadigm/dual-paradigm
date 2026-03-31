@@ -1,0 +1,33 @@
+﻿predictor,group,outcome,n,positive_n,positive_rate
+venue_cat,Computer science,I_design,29,21,0.7241
+venue_cat,Computer science,J_presentation,29,24,0.8276
+venue_cat,Computer science,K_representation,29,17,0.5862
+venue_cat,Computer science,L_data,29,22,0.7586
+venue_cat,HCI,I_design,53,43,0.8113
+venue_cat,HCI,J_presentation,53,41,0.7736
+venue_cat,HCI,K_representation,53,39,0.7358
+venue_cat,HCI,L_data,53,47,0.8868
+venue_cat,Sociology,I_design,5,3,0.6
+venue_cat,Sociology,J_presentation,5,3,0.6
+venue_cat,Sociology,K_representation,5,3,0.6
+venue_cat,Sociology,L_data,5,4,0.8
+venue_cat,VIS,I_design,60,19,0.3167
+venue_cat,VIS,J_presentation,60,56,0.9333
+venue_cat,VIS,K_representation,60,52,0.8667
+venue_cat,VIS,L_data,60,59,0.9833
+venue_cat,other,I_design,7,6,0.8571
+venue_cat,other,J_presentation,7,6,0.8571
+venue_cat,other,K_representation,7,3,0.4286
+venue_cat,other,L_data,7,4,0.5714
+paper_type,application+system,I_design,116,67,0.5776
+paper_type,application+system,J_presentation,116,104,0.8966
+paper_type,application+system,K_representation,116,89,0.7672
+paper_type,application+system,L_data,116,104,0.8966
+paper_type,technique+algorithm,I_design,20,11,0.55
+paper_type,technique+algorithm,J_presentation,20,13,0.65
+paper_type,technique+algorithm,K_representation,20,12,0.6
+paper_type,technique+algorithm,L_data,20,19,0.95
+paper_type,theory,I_design,18,14,0.7778
+paper_type,theory,J_presentation,18,13,0.7222
+paper_type,theory,K_representation,18,13,0.7222
+paper_type,theory,L_data,18,13,0.7222

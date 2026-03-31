@@ -1,0 +1,9 @@
+﻿dimension,n_labels,n_binary_decisions,mean_kappa,median_like_note,pooled_observed_agreement,pooled_expected_agreement,pooled_kappa,pooled_interpretation
+User (who),3,804,0.9713,feature mean across labels,0.9876,0.5251,0.9738,almost perfect
+Topic (what),7,1876,0.9790,feature mean across labels,0.9947,0.7445,0.9791,almost perfect
+Presentation (how),5,1340,0.9535,feature mean across labels,0.9851,0.6056,0.9622,almost perfect
+Goal (why),5,1340,0.8814,feature mean across labels,0.9493,0.5069,0.8971,almost perfect
+"data origin (when) historical, live, predictive, synthesized",4,1072,0.9079,feature mean across labels,0.9869,0.6158,0.9660,almost perfect
+representation form (how),4,1072,0.7639,feature mean across labels,0.9580,0.5531,0.9061,almost perfect
+Scale,3,804,0.7464,feature mean across labels,0.8893,0.5560,0.7507,substantial
+Semantics,3,804,0.5547,feature mean across labels,0.7774,0.5086,0.5469,moderate
