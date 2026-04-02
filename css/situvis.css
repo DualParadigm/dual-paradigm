@@ -31,7 +31,7 @@ body {
 	justify-content: center;
 	padding: 48px 24px 40px;
 	overflow: hidden;
-	background-color: #e5d8dc;
+	background-color: #fff;
 }
 
 .situvis-banner-bg {
@@ -85,6 +85,12 @@ body {
 .situvis-banner-desc {
 	font-size: clamp(1.224rem, 2.88vw, 1.44rem);
 	margin-top: 8px;
+	/* 小标题改为更简洁的无衬线 */
+	font-family: system-ui, -apple-system, "PingFang SC", "Helvetica Neue", "Noto Sans", "Microsoft YaHei", sans-serif;
+	font-weight: 300;
+	letter-spacing: 0.06em;
+	text-shadow: none;
+	color: rgba(0, 0, 0, 0.55);
 }
 
 /* ---------- 索引切换条（banner 下方） ---------- */
@@ -114,18 +120,21 @@ body {
 	font-weight: 400;
 	letter-spacing: 0.02em;
 	color: #555;
-	text-decoration: none;
+	text-decoration: none !important; /* 去掉文字下划线（cases 文本下方那条） */
 	border-bottom: 3px solid transparent;
 	transition: color 0.2s, border-color 0.2s;
 }
 
 .situvis-nav-item:hover {
 	color: #333;
+	text-decoration: none !important;
+	border-bottom-color: transparent;
 }
 
 .situvis-nav-item.active {
 	color: #ff6e9c;
-	border-bottom-color: #64c3ff;
+	text-decoration: none !important;
+	border-bottom-color: #ffe0e0;
 }
 
 .situvis-guidance-placeholder {
@@ -164,9 +173,35 @@ body {
 	z-index: 2;
 	display: flex;
 	flex-direction: column;
-	padding: 20px 16px 24px;
+	padding: 28px 16px 24px;
 	overflow-y: auto;
 	border-radius: 0;
+	/* 滚动条：变细 + 粉色滑块（交互仍为原生滚动） */
+	scrollbar-width: thin;
+	scrollbar-color: #f0a8c0 rgba(0, 0, 0, 0.05);
+}
+
+.situvis-sidebar::-webkit-scrollbar {
+	width: 6px;
+}
+
+.situvis-sidebar::-webkit-scrollbar-track {
+	background: rgba(0, 0, 0, 0.05);
+	border-radius: 999px;
+}
+
+.situvis-sidebar::-webkit-scrollbar-thumb {
+	background: #f0a8c0;
+	border-radius: 999px;
+}
+
+.situvis-sidebar::-webkit-scrollbar-thumb:hover {
+	background: #e895b0;
+}
+
+/* 避免首个标签标题被顶部圆角/裁切遮挡 */
+.situvis-filter-block:first-child {
+	padding-top: 2px;
 }
 
 /* 筛选区块标题 */
@@ -224,15 +259,15 @@ body {
 	padding: 0 12px;
 	font-size: 13px;
 	font-weight: 600;
-	color: #fff;
-	background: #5a6b7d;
+	color: #2f3640;
+	background: #ffe0e0;
 	border: none;
 	border-radius: 6px;
 	cursor: pointer;
 }
 
 .situvis-search-btn:hover {
-	background: #4a5a6b;
+	background: #ffd1d1;
 }
 
 .situvis-filter-count {
@@ -246,7 +281,110 @@ body {
 	padding: 0;
 }
 
-/* 标签式筛选按钮（与 ArtisticVis 一致） */
+.situvis-tree {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	padding-top: 10px;
+}
+
+.situvis-tree-node {
+	display: block;
+}
+
+.situvis-tree-toggle,
+.situvis-tree-subtoggle {
+	position: relative;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	padding: 10px 12px;
+	border: none;
+	background: transparent;
+	color: #2f3640;
+	text-align: left;
+	cursor: pointer;
+	font-family: "Optima", "PingFang SC", "Helvetica Neue", sans-serif;
+}
+
+.situvis-tree-toggle {
+	font-size: 15px;
+	font-weight: 700;
+	border-radius: 8px;
+	background: #f7edf0;
+}
+
+/* 四个一级标签颜色（按你给的示意图） */
+.situvis-tree-root--design > .situvis-tree-toggle {
+	background: #ffb1a8;
+}
+
+.situvis-tree-root--presentation > .situvis-tree-toggle {
+	background: #ff6ea8;
+}
+
+.situvis-tree-root--representation > .situvis-tree-toggle {
+	background: #66f0c8;
+}
+
+.situvis-tree-root--data > .situvis-tree-toggle {
+	background: #64b7ff;
+}
+
+.situvis-tree-subtoggle {
+	font-size: 13px;
+	font-weight: 600;
+	padding-left: 26px;
+	color: #596273;
+}
+
+.situvis-tree-toggle::before,
+.situvis-tree-subtoggle::before {
+	/* 不显示 +/- 符号（由展开/折叠交互控制内容显隐即可） */
+	content: "";
+	display: none;
+}
+
+.situvis-tree-subtoggle::before {
+	left: 14px;
+}
+
+.situvis-tree-node.is-open > .situvis-tree-toggle::before,
+.situvis-tree-node.is-open > .situvis-tree-subtoggle::before {
+	content: "-";
+}
+
+.situvis-tree-children {
+	margin-top: 6px;
+	padding-left: 12px;
+	border-left: 1px solid #ece5e8;
+}
+
+.situvis-tree-node > .situvis-tree-children {
+	margin-left: 8px;
+}
+
+.situvis-tree-leaf {
+	padding: 4px 0 10px 22px;
+}
+
+.situvis-tree-meta-label {
+	padding: 6px 0 4px 22px;
+	font-size: 11px;
+	font-weight: 700;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+	color: #8a8090;
+}
+
+.situvis-tree-placeholder {
+	padding: 8px 0 10px 22px;
+	font-size: 12px;
+	line-height: 1.5;
+	color: #7a7a7a;
+}
+
+/* 标签式筛选按钮 */
 .situvis-sidebar .idvx-collapsed-container {
 	display: flex;
 	flex-wrap: wrap;
@@ -276,12 +414,6 @@ body {
 	background-size: 75% !important;
 }
 
-.situvis-sidebar .panel-heading.idvx-panel-heading {
-	padding: 12px 14px 6px;
-	font-size: 13px;
-	background-color: #ffd6e0;
-}
-
 .situvis-sidebar .panel,
 .situvis-sidebar .idvx-panel {
 	border-radius: 0 !important;
@@ -302,11 +434,26 @@ body {
 
 /* 年份筛选 */
 .situvis-sidebar .idvx-timeFilter-container {
-	margin-bottom: 6px;
+	/* 覆盖 idvx_style.css 的 absolute 定位，避免年份数字与滑块重叠 */
+	margin: 10px 0 0;
+	height: auto;
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: 12px;
+}
+
+.situvis-sidebar .idvx-left-relativeNum,
+.situvis-sidebar .idvx-right-relativeNum {
+	position: static;
+	width: auto;
+	display: inline-block;
+	line-height: 1.1;
 }
 
 .situvis-sidebar .idvx-timeFilter-components {
-	margin-top: 4px;
+	/* 给 handle 预留空间，避免顶到标题/数字 */
+	margin-top: 8px;
 }
 
 /* ---------- 右侧主内容区 ---------- */

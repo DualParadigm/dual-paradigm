@@ -29,6 +29,7 @@ $(document).ready(function() {
     setupTooltips();
     loadData();
     setupHandlers();
+    setupTreeNav();
     setupNavTabs();
     if(!$.cookie(COOKIE_TITLE))
         cookieSetting();
@@ -69,6 +70,27 @@ function setupTooltips() {
         selector: '[data-toggle="tooltip"]',
         container: "body",
         placement: "auto bottom"
+    });
+}
+
+function setupTreeNav() {
+    $(".situvis-sidebar").on("click", "[data-tree-toggle]", function() {
+        var toggle = $(this);
+        var node = toggle.closest("[data-tree-node]");
+        var children = node.children("[data-tree-children]");
+        var nextExpanded = toggle.attr("aria-expanded") !== "true";
+
+        toggle.attr("aria-expanded", nextExpanded ? "true" : "false");
+        node.toggleClass("is-open", nextExpanded);
+        children.prop("hidden", !nextExpanded);
+    });
+
+    // 默认全部展开（左侧标签栏初始为打开状态）
+    $(".situvis-sidebar [data-tree-node]").each(function() {
+        var node = $(this);
+        node.addClass("is-open");
+        node.children("[data-tree-children]").prop("hidden", false);
+        node.children("[data-tree-toggle]").attr("aria-expanded", "true");
     });
 }
 
